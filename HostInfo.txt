@@ -1,0 +1,21 @@
+﻿"HSBorsConnectionString": "server=DESKTOP-QKBIJIL;database=HSBorsDb;integrated security=yes;"
+server=158.58.187.220\\MSSQLSERVER2014;database=HSBorsDb;User Id=hsborsir;Password=sr@2050130351
+
+نرم افزار
+core host windows bundle باید نصب شود
+هم نسخه 2.1 و هم نسخه 3.1
+فایلهای 
+event view
+در سرور باید ساخته شود وگرنه خطا میدهد که سرور ران شد ولی خاموش شد
+در iis
+application pool
+باید بصورت nomanage code
+باشد اگر جواب نداد در فایل کانفیگ باید v2
+اضافه شود
+درsql server باید برای 
+application pool name
+لاگین و دسترسی ایجاد شود
+پابلیش asp core:
+به فولدر
+release netcoreapp2.1
+framework-dependent win86x

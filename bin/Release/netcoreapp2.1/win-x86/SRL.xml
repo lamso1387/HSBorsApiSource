@@ -1,0 +1,2727 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SRL</name>
+    </assembly>
+    <members>
+        <member name="T:SRL.SchedulerManager.Job">
+            <summary>
+            Classes which extend this abstract class are Jobs which will be
+            started as soon as the application starts. These Jobs are executed
+            asynchronously from the Web Application.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Job.ExecuteJob">
+            <summary>
+            Execute the Job itself, one ore repeatedly, depending on
+            the job implementation.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Job.GetParameters">
+            <summary>
+            If this method is overriden, on can get within the job
+            parameters set just before the job is started. In this
+            situation the application is running and the use may have
+            access to resources which he/she has not during the thread
+            execution. For instance, in a web application, the user has
+            no access to the application context, when the thread is running.
+            Note that this method must not be overriden. It is optional.
+            </summary>
+            <returns>Parameters to be used in the job.</returns>
+        </member>
+        <member name="M:SRL.SchedulerManager.Job.GetName">
+            <summary>
+            Get the Job´s Name. This name uniquely identifies the Job.
+            </summary>
+            <returns>Job´s name.</returns>
+        </member>
+        <member name="M:SRL.SchedulerManager.Job.DoJob">
+            <summary>
+            The job to be executed.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Job.IsRepeatable">
+            <summary>
+            Determines whether a Job is to be repeated after a
+            certain amount of time.
+            </summary>
+            <returns>True in case the Job is to be repeated, false otherwise.</returns>
+        </member>
+        <member name="M:SRL.SchedulerManager.Job.GetRepetitionIntervalTime">
+            <summary>
+            The amount of time, in milliseconds, which the Job has to wait until it is started
+            over. This method is only useful if IJob.IsRepeatable() is true, otherwise
+            its implementation is ignored.
+            </summary>
+            <returns>Interval time between this job executions.</returns>
+        </member>
+        <member name="T:SRL.SchedulerManager.JobManager">
+            <summary>
+            Job mechanism manager.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.JobManager.ExecuteAllJobs">
+            <summary>
+            Execute all Jobs.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.JobManager.GetAllTypesImplementingInterface(System.Type)">
+            <summary>
+            Returns all types in the current AppDomain implementing the interface or inheriting the type. 
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.JobManager.IsRealClass(System.Type)">
+            <summary>
+            Determine whether the object is real - non-abstract, non-generic-needed, non-interface class.
+            </summary>
+            <param name="testType">Type to be verified.</param>
+            <returns>True in case the class is real, false otherwise.</returns>
+        </member>
+        <member name="T:SRL.SchedulerManager.Log4NetConstants">
+            <summary>
+            Constants for Log4Net
+            </summary>
+        </member>
+        <member name="F:SRL.SchedulerManager.Log4NetConstants.SCHEDULER_LOGGER">
+            <summary>
+            This instance retrieves the Scheduler
+            </summary>
+        </member>
+        <member name="T:SRL.SchedulerManager.Sample.SampleApp">
+            <summary>
+            Class which executes the program.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.SampleApp.Main(System.String[])">
+            <summary>
+            Method which instantiate the job manager and execute
+            all jobs.
+            </summary>
+            <param name="args">Arguments of execution. They are not
+            used here.</param>
+        </member>
+        <member name="T:SRL.SchedulerManager.Sample.RepeatableJob">
+            <summary>
+            A simple repeatable Job.
+            </summary>
+        </member>
+        <member name="F:SRL.SchedulerManager.Sample.RepeatableJob.counter">
+            <summary>
+            Counter used to count the number of times this job has been
+            executed.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.RepeatableJob.GetName">
+            <summary>
+            Get the Job Name, which reflects the class name.
+            </summary>
+            <returns>The class Name.</returns>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.RepeatableJob.DoJob">
+            <summary>
+            Execute the Job itself. Just print a message.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.RepeatableJob.IsRepeatable">
+            <summary>
+            Determines this job is repeatable.
+            </summary>
+            <returns>Returns true because this job is repeatable.</returns>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.RepeatableJob.GetRepetitionIntervalTime">
+            <summary>
+            Determines that this job is to be executed again after
+            1 sec.
+            </summary>
+            <returns>1 sec, which is the interval this job is to be
+            executed repeatadly.</returns>
+        </member>
+        <member name="T:SRL.SchedulerManager.Sample.RepeatableJob2">
+            <summary>
+            A simple repeatable Job.
+            </summary>
+        </member>
+        <member name="F:SRL.SchedulerManager.Sample.RepeatableJob2.counter">
+            <summary>
+            Counter used to count the number of times this job has been
+            executed.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.RepeatableJob2.GetName">
+            <summary>
+            Get the Job Name, which reflects the class name.
+            </summary>
+            <returns>The class Name.</returns>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.RepeatableJob2.DoJob">
+            <summary>
+            Execute the Job itself. Just print a message.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.RepeatableJob2.IsRepeatable">
+            <summary>
+            Determines this job is repeatable.
+            </summary>
+            <returns>Returns true because this job is repeatable.</returns>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.RepeatableJob2.GetRepetitionIntervalTime">
+            <summary>
+            Determines that this job is to be executed again after
+            1 sec.
+            </summary>
+            <returns>1 sec, which is the interval this job is to be
+            executed repeatadly.</returns>
+        </member>
+        <member name="T:SRL.SchedulerManager.Sample.SimgleExecutionJob">
+            <summary>
+            A simple job which is executed only once.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.SimgleExecutionJob.GetName">
+            <summary>
+            Get the Job Name, which reflects the class name.
+            </summary>
+            <returns>The class Name.</returns>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.SimgleExecutionJob.DoJob">
+            <summary>
+            Execute the Job itself. Just print a message.
+            </summary>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.SimgleExecutionJob.IsRepeatable">
+            <summary>
+            Determines this job is not repeatable.
+            </summary>
+            <returns>Returns false because this job is not repeatable.</returns>
+        </member>
+        <member name="M:SRL.SchedulerManager.Sample.SimgleExecutionJob.GetRepetitionIntervalTime">
+            <summary>
+            In case this method is executed NotImplementedException is thrown
+            because this method is not to to be used. This method is never used
+            because it serves the purpose of stating the interval of which the job
+            will be executed repeatedly. Since this job is a single-execution one,
+            this method is rendered useless.
+            </summary>
+            <returns>Returns nothing because this method is not to be used.</returns>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.AddressResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.Avenue">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.BuildingName">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.Description">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.FloorNo">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.HouseNo">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.HouseNoSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.Location">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.LocationCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.LocationType">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.Parish">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.PostCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.PreAvenue">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.SideFloor">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.State">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.TownShip">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.Village">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.AddressResult.Zone">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.Result">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.Result.ErrorCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.Result.ErrorCodeSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.Result.ErrorMessage">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.WorkshopResult">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.ActivityCodeResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.ActivityCodeResult.TypeCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.ActivityCodeResult.TypeCode2">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.ActivityCodeResult.TypeCode3">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.BooleanResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.BooleanResult.Value">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.BooleanResult.ValueSpecified">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.PositionResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.PositionResult.Latitude">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.PositionResult.LatitudeSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.PositionResult.Longitude">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.PositionResult.LongitudeSpecified">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.PhoneResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.PhoneResult.PhoneNo">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.PhoneResult.PrePhoneNo">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.StringResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.StringResult.Value">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.CertificateResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.CertificateResult.CertificateNo">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.CertificateResult.CertificateUrl">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.DataResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.DataResult.Latitude">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.DataResult.LatitudeSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.DataResult.Longitude">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.DataResult.LongitudeSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.DataResult.PhoneNo">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.DataResult.PrePhoneNo">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CIXGetAddressByPostcode.PhoneAddressResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.PhoneAddressResult.PhoneNo">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CIXGetAddressByPostcode.PhoneAddressResult.PrePhoneNo">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CixGetLegalPerson.Parameter">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Parameter.NationalCode">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CixGetLegalPerson.Result">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.Address">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.BranchList">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.BreakUpDate">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.EstablishmentDate">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.FollowUpNo">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.IsBranch">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.IsBranchSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.IsBreakUp">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.IsBreakUpSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.IsDbResult">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.IsDbResultSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.IsSettle">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.IsSettleSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.LegalPersonType">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.Message">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.Name">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.NationalCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.ParentLegalPerson">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.PostCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.RegisterDate">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.RegisterNumber">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.RegisterUnit">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.Residency">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.SettleDate">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.State">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.Successful">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.SuccessfulSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.UserId">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetLegalPerson.Result.UserIdSpecified">
+            <remarks/>
+        </member>
+        <member name="T:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.BirthDate">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.City">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.DeathDate">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.ErrorCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.ErrorCodeSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.ErrorDescription">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.FatherName">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.FirstName">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.Gender">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.IdentityNo">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.IdentitySerial">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.IdentitySeries">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.IsLive">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.LastName">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.NationalCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.SupervisorNationalCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.Town">
+            <remarks/>
+        </member>
+        <member name="P:SRL.CixGetPersonInfoServiceReference.SabtAhvalSAHAPersonInfoStract.Vilage">
+            <remarks/>
+        </member>
+        <member name="T:SRL.ServiceReferenceSendSms.MessagesBL">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.MsgID">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.UserID">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.LinkID">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.NumberID">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.Tariff">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.MsgType">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.Body">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.Udh">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.SendDate">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.Sender">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.Receiver">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.FirstLocation">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.CurrentLocation">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.Parts">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.IsFlash">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.IsRead">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.IsUnicode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.Credit">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.Module">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.RecCount">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.RecFailed">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.RecSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.IsMoneyBack">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.UserStepedMaster">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.UserMaster">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.MoneyBackCount">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.MoneyBackLevel">
+            <remarks/>
+        </member>
+        <member name="P:SRL.ServiceReferenceSendSms.MessagesBL.AutoSpeechText">
+            <remarks/>
+        </member>
+        <member name="T:SRL.ServiceReferenceSendSms.BaseBL">
+            <remarks/>
+        </member>
+        <member name="T:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo.From">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo.IsResend">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo.IsResendSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo.IsSwitch">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo.IsSwitchSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo.Message">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo.ResendDuration">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo.ResendDurationSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentSendSMSFromInfo.To">
+            <remarks/>
+        </member>
+        <member name="T:SRL.SmsNtswService.CsOperationManagmentRequestAnswer">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentRequestAnswer.ErrorCode">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentRequestAnswer.ErrorCodeSpecified">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentRequestAnswer.ErrorMessage">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentRequestAnswer.RecID">
+            <remarks/>
+        </member>
+        <member name="P:SRL.SmsNtswService.CsOperationManagmentRequestAnswer.RecIDSpecified">
+            <remarks/>
+        </member>
+        <member name="F:SRL.GradientButton.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.GradientButton.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.GradientButton.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:SRL.LicenseClass">
+            <summary>
+            Usage Guide:
+            Command for creating the certificate n developer command prompt for VS
+            >> makecert -pe -ss My -sr CurrentUser -$ commercial -n "CN=YourCertName" -sky Signature
+            Go to certmgr.msc in win Run. cer file in under Personal/Certificates. Then export the cert with private key from key store with a password named LicenseSign.pfx
+            Also export another cert with only public key named LicenseVerify.cer
+            </summary>
+        </member>
+        <member name="M:SRL.LicenseClass.#ctor(System.Boolean,System.Boolean)">
+            <summary>
+            use it for checking license
+            </summary>
+            <param name="ShowMessageAfterValidation_"></param>
+        </member>
+        <member name="M:SRL.LicenseClass.#ctor(System.Reflection.Assembly,System.String,System.Boolean,System.String)">
+            <summary>
+            use it for activating license
+            </summary>
+            <param name="_assembly"></param>
+            <param name="license_full_file_name">e.g. "LicenseSign.pfx"</param>
+            <param name="license_password"></param>
+        </member>
+        <member name="M:SRL.LicenseClass.CheckLicense``1(System.Reflection.Assembly,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <typeparam name="LicenseT">LicenseT must inherite : LicenseEntity . see examples</typeparam>
+            <param name="_assembly">Assembly.GetExecutingAssembly()</param>
+            <param name="app_name">e.g. "hesabdari"</param>
+            <param name="license_cer_full_file_name">e.g "LicenseVerify.cer" file must be Embedded Resource Build Action and Do not copy to output directory</param>
+            <param name="license_key"> get it from a file or db. send null if license file or license column not exist </param>
+            <returns></returns>
+        </member>
+        <member name="T:SRL.LicenseClass.LicenseEntity">
+            <summary>
+            app should has a class for example AppLicenseClass that inherites from LicenseEntity. see AppLicenseExample1 and AppLicenseExample2
+            </summary>
+        </member>
+        <member name="M:SRL.LicenseClass.LicenseEntity.DoExtraValidation(System.Boolean,System.String@)">
+            <summary>
+            For child class to do extra validation for those extended properties
+            </summary>
+            <param name="validationMsg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.LicenseClass.GetPubicKeyData(System.Reflection.Assembly,System.String)">
+            <summary>
+            returns public key if .cer or private key if .pfx is given
+            </summary>
+            <param name="_assembly_"></param>
+            <param name="app_name_"></param>
+            <param name="license_full_file_name_">e.g. "LicenseSign.pfx" or "LicenseVerify.cer"</param>
+            <returns></returns>    
+        </member>
+        <member name="M:SRL.LicenseClass.VerifyXml(System.Xml.XmlDocument,System.Security.Cryptography.RSA)">
+            <summary>
+            Verify the signature of an XML file against an asymmetric algorithm and return the result.
+            </summary>
+            <param name="Doc"></param>
+            <param name="Key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SRL.LicenseClass.ShowInLicenseInfoAttribute">
+            <summary>
+            This attribute defines whether the property of LicenseEntity object will be shown in LicenseInfoControl
+            </summary>
+        </member>
+        <member name="M:SRL.LicenseClass.GenerateUID(System.String,System.String)">
+            <summary>
+            Combine appName, CPU ID, Disk C Volume Serial Number and Motherboard Serial Number as device Id
+            if user_mobile is set, it is first input for device Id
+            </summary>
+            <param name="appName"></param>
+            <param name="user_mobile">if set, it is first input for device Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.LicenseClass.GetDiskVolumeSerialNumber">
+            <summary>
+            Get volume serial number of drive C
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.LicenseClass.GetProcessorId">
+            <summary>
+            Get CPU ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.LicenseClass.GetMotherboardID">
+            <summary>
+            Get motherboard serial number
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.LicenseClass.GetUIDInBytes(System.String)">
+            <summary>
+            not usable in main license proccess
+            </summary>
+            <param name="UID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.LicenseClass.SignXML(System.Xml.XmlDocument,System.Security.Cryptography.RSA)">
+            <summary>
+            Sign an XML file. This document cannot be verified unless the verifying code has the key with which it was signed.
+            </summary>
+            <param name="xmlDoc"></param>
+            <param name="Key"></param>
+        </member>
+        <member name="F:SRL.WinLicenseActivation.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.WinLicenseActivation.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.WinLicenseActivation.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:SRL.WinLicenseAdminActivator.#ctor(System.Boolean,System.Reflection.Assembly,System.String)">
+            <summary>
+            call this.SettingsControl-AppLicenseClass- after instanse created
+            </summary>
+            <param name="assembly_"></param>
+            <param name="license_pfx_file_name_">LicenseSign.pfx must be Embedded Resource build action and do not copy to output</param>       
+        </member>
+        <member name="F:SRL.WinLicenseAdminActivator.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.WinLicenseAdminActivator.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.WinLicenseAdminActivator.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:SRL.WinLicenseForm" -->
+        <member name="M:SRL.WinLicenseForm.#ctor(System.Reflection.Assembly,System.Boolean,System.String,System.String)">
+            <summary>
+            license default file is "license.lic" and should be in app and executive root only. call this.CheckLicenseKey-AppLicenseClass- after instanse created then ShowDialog
+            </summary>
+            <param name="assembly_"></param>
+            <param name="license_file_name_"></param>
+            <param name="license_cer_file_name_">LicenseVerify.cer must be Embedded Resource build action and do not copy to output</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SRL.WinLicenseForm.#ctor" -->
+        <member name="F:SRL.WinLicenseForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.WinLicenseForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.WinLicenseForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SRL.WinLoginProfile.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.WinLoginProfile.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.WinLoginProfile.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:SRL.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SRL.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SRL.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SRL.Properties.Resources._1413037734_Last">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SRL.Properties.Resources._1413037734_Last1">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SRL.Properties.Resources.Calendar">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SRL.Properties.Resources.Calendar_1128083418">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="M:SRL.Print.PrintFromDatagridView.printDocument1_BeginPrint(System.Object,System.Drawing.Printing.PrintEventArgs)">
+            <summary>
+            Handles the begin print event of print document
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SRL.Print.PrintFromDatagridView.printDocument1_PrintPage(System.Object,System.Drawing.Printing.PrintPageEventArgs)">
+            <summary>
+            Handles the print page event of print document
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SRL.DateTimeLanguageClass.DateTimeToSring(System.Nullable{System.DateTime},System.String)">
+            <summary>
+            full example for format:  .ToString("yyyy/MM/dd HH:mm:ss tt")
+            hh is for 12 hour and HH is for 24 hour
+            MM is for month and mm is for minute
+            </summary>
+            <param name="dt"></param>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.SettingClass`1.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            SettingEntity table must have  columns "key" and "value".
+            </summary>
+            <param name="db_"></param>
+        </member>
+        <member name="M:SRL.SettingClass`1.CheckSetting(System.String,System.Type,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            put is_set_key to last in kv. consider to set db_version
+            </summary>
+            <param name="is_set_key"></param>
+            <param name="setting_enum_type"></param>
+            <param name="kv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.SettingClass`1.MigrateDatabase(System.Collections.Generic.Dictionary{System.String,System.String},System.Reflection.Assembly,System.String)">
+            <summary>
+            check setting before migration because of db_version
+            </summary>
+            <param name="migration_version_query"></param>
+            <param name="assembly"></param>
+        </member>
+        <member name="M:SRL.ChildParent.RefreshFormControls(System.Windows.Forms.Control,System.Collections.Generic.List{System.Type},System.Collections.Generic.List{System.Windows.Forms.Control},System.Windows.Forms.Control[])">
+            <summary>
+            
+            </summary>
+            <param name="parent_to_refresh"></param>
+            <param name="types_to_refresh"></param>
+            <param name="controls_to_refresh">new List Type() { typeof(Button), typeof(TextBox),... }</param>
+        </member>
+        <member name="T:SRL.ActionManagement.MethodCall.MethodBackgroundWorker">
+            <summary>
+            first create instance of class. then create event of instance.bg.RunWorkerCompleted += Bg_RunWorkerCompleted; and put after complete code in it then call RunMethodInBackground
+            </summary>
+        </member>
+        <member name="M:SRL.ActionManagement.MethodCall.AsynceLoader.CallAsync(System.Action,System.Action,System.Action{System.Exception})">
+            <summary>
+            use CallAwaitble for task action otherwise use thise
+            </summary>
+        </member>
+        <member name="M:SRL.ActionManagement.MethodCall.AsynceLoader.CallAwaitable(System.Func{System.Threading.Tasks.Task},System.Action,System.Action{System.Exception})">
+            <param name="act">a function whith task output</param>
+        </member>
+        <member name="F:SRL.WinUI.FormClass.EnableFadeShowForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.WinUI.FormClass.EnableFadeShowForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:SRL.WinUI.TextBoxClass.TextBoxBorderColor.#ctor(System.Windows.Forms.TextBox,System.Windows.Forms.TextBox@,System.Drawing.Color,System.Drawing.Color,System.String)">
+            <summary>
+            tb must have parent
+            </summary>
+            <param name="tb"></param>
+            <param name="new_tb_"></param>
+            <param name="border_color_"></param>
+            <param name="border_focus_color_"></param>
+            <param name="border_or_focus_or_both_"></param>
+        </member>
+        <member name="M:SRL.WinUI.AlterTitleBarColor.#ctor">
+            <summary>
+            add all of this class code (after constructor) to Form1.cs before it's constructor and call  DisableProcessWindowsGhosting() in that load event.
+            </summary>
+        </member>
+        <member name="P:SRL.WinTools.LoadingCircleControl.LoadingCircle.Color">
+            <summary>
+            Gets or sets the lightest color of the circle.
+            </summary>
+            <value>The lightest color of the circle.</value>
+        </member>
+        <member name="P:SRL.WinTools.LoadingCircleControl.LoadingCircle.OuterCircleRadius">
+            <summary>
+            Gets or sets the outer circle radius.
+            </summary>
+            <value>The outer circle radius.</value>
+        </member>
+        <member name="P:SRL.WinTools.LoadingCircleControl.LoadingCircle.InnerCircleRadius">
+            <summary>
+            Gets or sets the inner circle radius.
+            </summary>
+            <value>The inner circle radius.</value>
+        </member>
+        <member name="P:SRL.WinTools.LoadingCircleControl.LoadingCircle.NumberSpoke">
+            <summary>
+            Gets or sets the number of spoke.
+            </summary>
+            <value>The number of spoke.</value>
+        </member>
+        <member name="P:SRL.WinTools.LoadingCircleControl.LoadingCircle.Active">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:LoadingCircle"/> is active.
+            </summary>
+            <value><c>true</c> if active; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:SRL.WinTools.LoadingCircleControl.LoadingCircle.SpokeThickness">
+            <summary>
+            Gets or sets the spoke thickness.
+            </summary>
+            <value>The spoke thickness.</value>
+        </member>
+        <member name="P:SRL.WinTools.LoadingCircleControl.LoadingCircle.RotationSpeed">
+            <summary>
+            Gets or sets the rotation speed.
+            </summary>
+            <value>The rotation speed.</value>
+        </member>
+        <member name="P:SRL.WinTools.LoadingCircleControl.LoadingCircle.StylePreset">
+            <summary>
+            Quickly sets the style to one of these presets, or a custom style if desired
+            </summary>
+            <value>The style preset.</value>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LoadingCircle"/> class.
+            </summary>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.LoadingCircle_Resize(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Resize event of the LoadingCircle control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.aTimer_Tick(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Tick event of the aTimer control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Forms.Control.Paint"></see> event.
+            </summary>
+            <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"></see> that contains the event data.</param>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.GetPreferredSize(System.Drawing.Size)">
+            <summary>
+            Retrieves the size of a rectangular area into which a control can be fitted.
+            </summary>
+            <param name="proposedSize">The custom-sized area for a control.</param>
+            <returns>
+            An ordered pair of type <see cref="T:System.Drawing.Size"></see> representing the width and height of a rectangle.
+            </returns>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.Darken(System.Drawing.Color,System.Int32)">
+            <summary>
+            Darkens a specified color.
+            </summary>
+            <param name="_objColor">Color to darken.</param>
+            <param name="_intPercent">The percent of darken.</param>
+            <returns>The new color generated.</returns>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.GenerateColorsPallet">
+            <summary>
+            Generates the colors pallet.
+            </summary>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.GenerateColorsPallet(System.Drawing.Color,System.Boolean,System.Int32)">
+            <summary>
+            Generates the colors pallet.
+            </summary>
+            <param name="_objColor">Color of the lightest spoke.</param>
+            <param name="_blnShadeColor">if set to <c>true</c> the color will be shaded on X spoke.</param>
+            <returns>An array of color used to draw the circle.</returns>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.GetControlCenterPoint">
+            <summary>
+            Gets the control center point.
+            </summary>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.GetControlCenterPoint(System.Windows.Forms.Control)">
+            <summary>
+            Gets the control center point.
+            </summary>
+            <returns>PointF object</returns>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.DrawLine(System.Drawing.Graphics,System.Drawing.PointF,System.Drawing.PointF,System.Drawing.Color,System.Int32)">
+            <summary>
+            Draws the line with GDI+.
+            </summary>
+            <param name="_objGraphics">The Graphics object.</param>
+            <param name="_objPointOne">The point one.</param>
+            <param name="_objPointTwo">The point two.</param>
+            <param name="_objColor">Color of the spoke.</param>
+            <param name="_intLineThickness">The thickness of spoke.</param>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.GetCoordinate(System.Drawing.PointF,System.Int32,System.Double)">
+            <summary>
+            Gets the coordinate.
+            </summary>
+            <param name="_objCircleCenter">The Circle center.</param>
+            <param name="_intRadius">The radius.</param>
+            <param name="_dblAngle">The angle.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.GetSpokesAngles">
+            <summary>
+            Gets the spokes angles.
+            </summary>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.GetSpokesAngles(System.Int32)">
+            <summary>
+            Gets the spoke angles.
+            </summary>
+            <param name="_shtNumberSpoke">The number spoke.</param>
+            <returns>An array of angle.</returns>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.ActiveTimer">
+            <summary>
+            Actives the timer.
+            </summary>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.SetCircleAppearance(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the circle appearance.
+            </summary>
+            <param name="numberSpoke">The number spoke.</param>
+            <param name="spokeThickness">The spoke thickness.</param>
+            <param name="innerCircleRadius">The inner circle radius.</param>
+            <param name="outerCircleRadius">The outer circle radius.</param>
+        </member>
+        <member name="F:SRL.WinTools.LoadingCircleControl.LoadingCircle.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircle.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="P:SRL.WinTools.LoadingCircleControl.LoadingCircleToolStripMenuItem.LoadingCircleControl">
+            <summary>
+            Gets the loading circle control.
+            </summary>
+            <value>The loading circle control.</value>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircleToolStripMenuItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SRL.WinTools.LoadingCircleControl.LoadingCircleToolStripMenuItem"/> class.
+            </summary>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircleToolStripMenuItem.GetPreferredSize(System.Drawing.Size)">
+            <summary>
+            Retrieves the size of a rectangular area into which a control can be fitted.
+            </summary>
+            <param name="constrainingSize">The custom-sized area for a control.</param>
+            <returns>
+            An ordered pair of type <see cref="T:System.Drawing.Size"></see> representing the width and height of a rectangle.
+            </returns>
+            <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircleToolStripMenuItem.OnSubscribeControlEvents(System.Windows.Forms.Control)">
+            <summary>
+            Subscribes events from the hosted control.
+            </summary>
+            <param name="control">The control from which to subscribe events.</param>
+        </member>
+        <member name="M:SRL.WinTools.LoadingCircleControl.LoadingCircleToolStripMenuItem.OnUnsubscribeControlEvents(System.Windows.Forms.Control)">
+            <summary>
+            Unsubscribes events from the hosted control.
+            </summary>
+            <param name="control">The control from which to unsubscribe events.</param>
+        </member>
+        <member name="M:SRL.WinTools.DataGridViewTool.DataGridViewWithPaging.#ctor(System.Windows.Forms.DataGridView,System.Windows.Forms.Control,System.Windows.Forms.Control,System.Windows.Forms.Control,System.Windows.Forms.Control,System.Windows.Forms.TextBox)">
+            <summary>
+            call DataBind
+            </summary>
+            <param name="dgv"></param>
+            <param name="controlFirst_"></param>
+            <param name="controlPrevious_"></param>
+            <param name="controlNext_"></param>
+            <param name="controlLast_"></param>
+            <param name="tbpaging_"></param>
+        </member>
+        <member name="T:SRL.WinTools.DataGridViewTool.DataGridViewColumnSelector">
+            <summary>
+            Add column show/hide capability to a DataGridView. When user right-clicks 
+            the cell origin a popup, containing a list of checkbox and column names, is
+            shown. 
+            example:  DataGridViewColumnSelector cs = new DataGridViewColumnSelector(dataGridView1);
+            cs.PopupMaxHeight = 100;
+            cs.PopupWidth = 110;
+            </summary>
+        </member>
+        <member name="F:SRL.WinTools.DataGridViewTool.DataGridViewColumnSelector.PopupMaxHeight">
+            <summary>
+            The max height of the popup
+            </summary>
+        </member>
+        <member name="F:SRL.WinTools.DataGridViewTool.DataGridViewColumnSelector.PopupWidth">
+            <summary>
+            The width of the popup
+            </summary>
+        </member>
+        <member name="P:SRL.WinTools.DataGridViewTool.DataGridViewColumnSelector.DataGridView">
+            <summary>
+            Gets or sets the DataGridView to which the DataGridViewColumnSelector is attached
+            </summary>
+        </member>
+        <member name="M:SRL.WinTools.ComboTool.MakeComboBoxSizable(System.Windows.Forms.ComboBox,System.Int32,System.Windows.Forms.Padding)">
+            <summary>
+            you should define Itemheight to best size
+            </summary>
+            <param name="cb"></param>
+            <param name="height"></param>
+            <param name="pad"></param>
+        </member>
+        <member name="M:SRL.WinTools.ComboTool.ComboBoxDataBind(System.Windows.Forms.ComboBox,System.Object[])">
+            <summary>
+            bind Array of {key(string), value (object)} list to combo box
+            </summary>
+            <param name="cb"></param>
+            <param name="array_list">IEnumeable().ToArray() of {key(string), value (object)} list</param>
+        </member>
+        <member name="M:SRL.WinTools.TextBoxTool.GetRawStringMaskedTextBox(System.Windows.Forms.MaskedTextBox)">
+            <summary>
+            return "" if control is empty or text with format if control is not empty
+            </summary>
+            <param name="control"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.WinTools.UserControlValidation.CheckAllField(System.Collections.Generic.List{System.Windows.Forms.Control})">
+            <summary>
+            if no controls passes then all fields will be checked. If some passes, only they will be checked.
+            </summary>
+            <param name="controls"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SRL.WinTools.UserControlValidation.ControlValidation(System.Windows.Forms.Control,SRL.WinTools.UserControlValidation.ErrorTypes,System.Windows.Forms.ErrorIconAlignment,System.Int32)">
+            <summary>
+            each control can use this method one time. eather add item to ErrorType enum source code or test another UserControlValidation object
+            </summary>
+            <param name="control"></param>
+            <param name="error_position"></param>
+            <param name="error_type"></param>
+            <param name="padding"></param>
+        </member>
+        <member name="T:SRL.Security.RolePermissionManagement">
+            <summary>
+            permission table must have columns: id , role , permission
+            </summary>
+        </member>
+        <member name="M:SRL.Security.IsValidNationalCode(System.String)">
+            <summary>
+            تعیین معتبر بودن کد ملی
+            </summary>
+            <param name="nationalCode">کد ملی وارد شده</param>
+            <returns>
+            در صورتی که کد ملی صحیح باشد خروجی <c>true</c> و در صورتی که کد ملی اشتباه باشد خروجی <c>false</c> خواهد بود
+            </returns>
+        </member>
+        <member name="M:SRL.Web.UpdateSoapAddress``1(System.ServiceModel.ClientBase{``0},System.String)">
+            <summary>
+            TChannel like IDataCollectorService, CidWebServiceSoap,IVOServicesSoap
+            </summary>
+            <typeparam name="TChannel">The type of channel produced by the channel factory. This type must be either IOutputChannel ( interface that a channel must implement to send a message) or IRequestChannel (contract that a channel must implement)</typeparam>
+            <param name="ser_"></param>
+            <param name="svc_address"></param>
+        </member>
+        <member name="M:SRL.Convertor.IEnumerableToDatatable.ObjectShredder`1.Shred(System.Collections.Generic.IEnumerable{`0},System.Data.DataTable,System.Nullable{System.Data.LoadOption})">
+            <summary>
+            Loads a DataTable from a sequence of objects.
+            </summary>
+            <param name="source">The sequence of objects to load into the DataTable.</param>
+            <param name="table">The input table. The schema of the table must match that 
+            the type T.  If the table is null, a new table is created with a schema 
+            created from the public properties and fields of the type T.</param>
+            <param name="options">Specifies how values from the source sequence will be applied to 
+            existing rows in the table.</param>
+            <returns>A DataTable created from the source sequence.</returns>
+        </member>
+        <member name="M:SRL.CodeFirst.MigrateDBToLatestVersion``2">
+            <summary>
+            creates and then migrates
+            </summary>
+            <typeparam name="TDbContext"></typeparam>
+            <typeparam name="TConfiguration"></typeparam>
+        </member>
+        <member name="M:SRL.Database.UpdateConnectionString(System.String,System.String,System.Windows.Forms.Control)">
+            <summary>
+            
+            </summary>
+            <param name="conStr">metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string="data source=.\SOHEILLAMSO;initial catalog=Semnan;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"</param>
+            <param name="conStrName">e.g. SemnanEntity</param>
+            <param name="control_to_load"></param>
+        </member>
+        <member name="M:SRL.AccessManagement.LoadDGVFromAccess(System.Windows.Forms.OpenFileDialog,System.Windows.Forms.Label,SRL.KeyValue.DataTableHeaderCheckType,System.String[],System.Windows.Forms.DataGridView,System.Windows.Forms.Label,System.String)">
+            <summary>
+             
+            </summary>
+            <param name="ofDialog"></param>
+            <param name="lblFileName"></param>
+            <param name="main_headers"></param>
+            <param name="dataGridView1"></param>
+            <param name="lblCount"></param>
+        </member>
+        <member name="M:SRL.FileManagement.FileCopyProgress.#ctor(System.String,System.String)">
+            <summary>
+            use OnProgressChanged event and then call Copy
+            </summary>
+            <param name="Source"></param>
+            <param name="Dest"></param>
+        </member>
+        <member name="M:SRL.FileManagement.ExtractFileIcon(System.String,System.String)">
+            <summary>
+            get full path file and save or replace icon file
+            </summary>
+            <param name="filePath">@"C:\hami.exe"</param>
+            <param name="icon_full_path">@"e:\myfile.ico"</param>
+        </member>
+        <member name="M:SRL.FileManagement.SaveToFile(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fileFullName">Path.Combine(Application.StartupPath, fileName)</param>
+            <param name="content"></param>
+        </member>
+        <member name="T:SRL.FontClass">
+            <summary>
+            first call GetContentFontNameFromByte then call InstallFont
+            </summary>
+        </member>
+        <member name="M:SRL.FontClass.GetContentFontNameFromByte(System.Byte[],System.String)">
+            <summary>
+            return font_name.ttf that is  WriteAllBytes from input bytes like Resources
+            </summary>
+            <param name="font_bytes">i.e. : Resources.irsan (irsan is resuource name)</param>
+            <returns>font_name.ttf that is input of InstallFont</returns>
+        </member>
+        <member name="M:SRL.FontClass.InstallFont(System.String)">
+            <summary>
+            Installs font on the user's system and adds it to the registry so it's available on the next session
+            Your font must be included in your project with its build path set to 'Content' and its Copy property
+            set to 'Copy Always'
+            </summary>
+            <param name="contentFontName">Your font to be passed as a resource (i.e. "myfont.tff" that is WriteAllBytes). get it from </param>
+        </member>
+        <member name="M:SRL.Setup.#ctor(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            for update or you can use is_update_or_null_if_all=true or you can use is_update_or_null_if_all=false and remove db and license and .. files from sourec
+            </summary>
+            <param name="application_name_without_extention"></param>
+            <param name="application_to_display_name_"></param>
+            <param name="directory_install_path_">e.i. @"C:\Program Files\hami\" </param>
+            <param name="is_update_or_null_if_all"></param>
+            <param name="update_file_list_"></param>
+        </member>
+        <member name="F:SRL.Setup.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.Setup.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.Setup.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SRL.BPersianCalenderTextBox.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.BPersianCalenderTextBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.BPersianCalenderTextBox.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SRL.PCalander.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.PCalander.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.PCalander.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SRL.SMIO_DataGridView.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.SMIO_DataGridView.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.SMIO_DataGridView.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:SRL.MessageBoxForm.#ctor">
+            <summary>
+            call static method: MessageBoxForm.Show("This is message box which represent message with title, custome button and custom icon.", "This is message title", enumMessageIcon.Question, enumMessageButton.OKCancel);
+            </summary>
+        </member>
+        <member name="M:SRL.MessageBoxForm.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Here I am overriding Paint method of form object
+            and set it's background color as gradient. Here I am
+            using LinearGradientBrush class object to make gradient
+            color which comes in System.Drawing.Drawing2D namespace.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:SRL.MessageBoxForm.setMessage(System.String)">
+            <summary>
+            setMessage method is used to display message
+            on form and it's height adjust automatically.
+            I am displaying message in a Label control.
+            </summary>
+            <param name="messageText">Message which needs to be displayed to user.</param>
+        </member>
+        <member name="M:SRL.MessageBoxForm.addButton(SRL.MessageBoxForm.enumMessageButton)">
+            <summary>
+            This method is used to add button on message box.
+            </summary>
+            <param name="MessageButton">MessageButton is type of enumMessageButton
+            through which I get type of button which needs to be displayed.</param>
+        </member>
+        <member name="M:SRL.MessageBoxForm.addIconImage(SRL.MessageBoxForm.enumMessageIcon)">
+            <summary>
+            We can use this method to add image on message box.
+            I had taken all images in ImageList control so that
+            I can eaily add images. Image is displayed in 
+            PictureBox control.
+            </summary>
+            <param name="MessageIcon">Type of image to be displayed.</param>
+        </member>
+        <member name="M:SRL.MessageBoxForm.Show(System.String,System.Windows.Forms.RightToLeft)">
+            <summary>
+            Show method is overloaded which is used to display message
+            and this is static method so that we don't need to create 
+            object of this class to call this method.
+            </summary>
+            <param name="messageText"></param>
+        </member>
+        <member name="F:SRL.MessageBoxForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.MessageBoxForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.MessageBoxForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:SRL.WinLogin">
+            <summary>
+            example in app:
+            public static string CheckLogin()
+             {
+                Public.srl_session.IsLogined = false;
+                new SRL.WinLogin(new HesabdariEntities(), "personnel", Public.srl_session).ShowDialog();
+                if (!Public.srl_session.IsLogined) Environment.Exit(0);
+                return Public.srl_session.user_name + " " + Public.srl_session.user_family;
+             }
+            </summary>
+        </member>
+        <member name="M:SRL.WinLogin.#ctor(System.Data.Entity.DbContext,System.String,SRL.WinSessionId,SRL.Security.HashAlgoritmType,System.Nullable{System.Drawing.Color})">
+            <summary>
+            user table must have column: id (long or bigint),username, password, name, family, role(master,admin, user)
+            </summary>
+            <param name="db_"></param>
+            <param name="entity_name_"></param>
+            <param name="session_"></param>
+        </member>
+        <member name="F:SRL.WinLogin.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.WinLogin.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.WinLogin.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:SRL.WinLoginUser.#ctor(System.Data.Entity.DbContext,System.String,System.Drawing.Color,System.String,System.Windows.Forms.MenuStrip,SRL.Security.HashAlgoritmType,System.Boolean,System.Boolean)">
+            <summary>
+            user table must have column: ID (long or bigint),username, password, name, family, role(admin, user)
+            </summary>
+            <param name="db_"></param>
+            <param name="personnel_entity_"></param>
+            <param name="btn_color"></param>
+            <param name="permission_entity"></param>
+            <param name="menu"></param>
+            <param name="password_type"></param>
+            <param name="enable_child_parent_check"></param>
+        </member>
+        <member name="F:SRL.WinLoginUser.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.WinLoginUser.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.WinLoginUser.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SRL.WinRolePermissions.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.WinRolePermissions.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.WinRolePermissions.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SRL.A1Panel.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.A1Panel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.A1Panel.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SRL.ProgressControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SRL.ProgressControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SRL.ProgressControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.ColumnFilterEventHandler">
+            <summary>
+            Represents the method that will handle an event related to a column filter.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:DgvFilterPopup.ColumnFilterEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:DgvFilterPopup.ColumnFilterEventArgs">
+            <summary>
+            Provides data for a column filter event. 
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.ColumnFilterEventArgs.Column">
+            <summary>
+            Gets the DataGridView column involved in the event.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.ColumnFilterEventArgs.ColumnFilter">
+            <summary>
+            Gets or sets the column filter instance.
+            </summary>
+            <value>A column filter instance.</value>
+        </member>
+        <member name="P:DgvFilterPopup.ColumnFilterEventArgs.Handled">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:DgvFilterPopup.ColumnFilterEventArgs"/> is handled.
+            </summary>
+            <value><c>true</c> if handled; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:DgvFilterPopup.ColumnFilterEventArgs.#ctor(System.Windows.Forms.DataGridViewColumn,DgvFilterPopup.DgvBaseColumnFilter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.ColumnFilterEventArgs"/> class.
+            </summary>
+            <param name="Column">The DstaGridView column.</param>
+            <param name="ColumnFilter">The column filter instance.</param>
+        </member>
+        <member name="T:DgvFilterPopup.HFilterAlignment">
+            <summary>
+            Specifies how the <i>column filter</i> control is horizontally aligned inside the <i>filter host</i>.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.VFilterAlignment">
+            <summary>
+            Specifies how the <i>column filter</i> control is vertically aligned inside the <i>filter host</i>.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.DgvBaseColumnFilter">
+            <summary>
+            The base class from which to derive effective <i>column filter</i> classes
+            </summary>
+            <remarks>
+            The purpose of a <i>column filter</i> control is to contain visual elements allowing the end user to construct a filter.
+            When inheriting from it, you can work just like creating any other user control. 
+            This class is a derivation of <b>UserControl</b> and provide functionalities to 
+            cooperate with DgvFilterManager. 
+            <para>
+            NOTE: 
+            This class must be intended as an abstract class. However, declaring it as abstract,
+            would generate errors whitin the designer when designing derived classes.
+            </para>
+            <para>
+            You should override <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)"/> to provide a filter expression construction 
+            logic and to set the values of the <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression"/> and <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption"/> properties. 
+            </para>
+            </remarks>      
+        </member>
+        <member name="E:DgvFilterPopup.DgvBaseColumnFilter.FilterExpressionBuilding">
+            <summary>
+            Occurs before the filter expression is about to be built.
+            </summary>
+        </member>
+        <member name="E:DgvFilterPopup.DgvBaseColumnFilter.FilterInitializing">
+            <summary>
+            Occurs when the filter column is about to be initialized.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.FilterApplySoon">
+            <summary>
+            Gets or sets a value indicating whether filter apply soon after a user performs some changes.
+            </summary>
+            <value><c>true</c> (default) if to apply soon; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression">
+            <summary>
+            Gets and sets the filter expression.
+            </summary>
+            <remarks>
+            It's the filter expression on the column. Its value is used by the <see cref="T:DgvFilterPopup.DgvFilterManager"/> to build the whole filter expression.
+            In inherited class, set its value in the override of <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)"/>.
+            The filter expression must follow the rules of the DataView <see cref="P:System.Data.DataView.RowFilter"/> property.
+            </remarks>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption">
+            <summary>
+            Gets and sets the caption to show in the column header when the filter is active.
+            </summary>
+            <remarks>
+            Represents the caption to show in the column header when the filter is active.
+            In inherited class, set its value in the override of <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)"/>.
+            </remarks>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.Active">
+            <summary>
+            Gets or sets a value indicating whether the filter is active.
+            </summary>
+            <value><c>true</c> if active; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.HFilterAlignment">
+            <summary>
+            Specifies how the <i>column filter</i> control is horizontally aligned inside the <i>filter host</i>.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.VFilterAlignment">
+            <summary>
+            Specifies how the <i>column filter</i> control is vertically aligned inside the <i>filter host</i>.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.BoundDataView">
+            <summary>
+            Gets the <b>DataView</b> acting as the data source of the <b>DataGridView</b> to which this <i>column filter</i> is applied.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.FilterHost">
+            <summary>
+            Gets the <i>filter host</i> control in which this <i>column filter</i> is shown.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.FilterManager">
+            <summary>
+            Gets the <i>filter manager</i>.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.DataGridViewColumn">
+            <summary>
+            Gets the <b>DataGridView</b> column to which this <i>column filter</i> is applied.
+            </summary>
+            <value>The data grid view column.</value>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.ColumnDataType">
+            <summary>
+            Gets the type of the data bound to the <b>DataGridView</b> column.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseColumnFilter.OriginalDataGridViewColumnHeaderText">
+            <summary>
+            Gets the original <b>DataGridView</b> column header text.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseColumnFilter.Init(DgvFilterPopup.DgvFilterManager,DgvFilterPopup.DgvBaseFilterHost,System.Windows.Forms.DataGridViewColumn,System.Data.DataView)">
+            <summary>
+            Called by the <i>filter manager</i>, inits the <i>column filter</i> and raises the FilterInitializing event.
+            </summary>
+            <param name="FilterManager">The <i>filter manager</i>.</param>
+            <param name="FilterHost">The filter host.</param>
+            <param name="gridColumn">The DataGridView column.</param>
+            <param name="boundDataView">The bound data view.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseColumnFilter.OnFilterInitializing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Raises the <see cref="E:DgvFilterPopup.DgvBaseColumnFilter.FilterInitializing"/> event
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            When this <i>column filter</i> control is added to the <i>column filters</i> array of the <i>filter manager</i>, 
+            the latter calls the <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.Init(DgvFilterPopup.DgvFilterManager,DgvFilterPopup.DgvBaseFilterHost,System.Windows.Forms.DataGridViewColumn,System.Data.DataView)"/> method which, in turn, calls this method. 
+            You can ovverride this method to provide initialization code. 
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseColumnFilter.FilterExpressionBuild">
+            <summary>
+            Forces the rebuilt of filter expression
+            </summary>
+            <remarks>
+            This method is called by <see cref="T:DgvFilterPopup.DgvFilterManager"/> when popup is closed, to 
+            force recreation of the filter expression. 
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Raises the <see cref="E:DgvFilterPopup.DgvBaseColumnFilter.FilterExpressionBuilding"/> event
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override <b>OnFilterExpressionBuilding</b> to provide a filter expression construction 
+            logic and to set the values of the <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression"/> and <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption"/> properties.
+            The <see cref="T:DgvFilterPopup.DgvFilterManager"/> will use these properties in constructing the whole filter expression and to change the header text of the filtered column.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseColumnFilter.StringEscape(System.String)">
+            <summary>
+            Escapes a string to be suitable for filter expression.
+            </summary>
+            <param name="s">The string to escape.</param>
+            <returns>The escaped string</returns>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseColumnFilter.FormatValue(System.Object,System.Type)">
+            <summary>
+            Returns the string representation of the passed value, based on target type.
+            </summary>
+            <param name="value">The value to be formatted.</param>
+            <param name="targetType">The target type.</param>
+            <returns>The string representation of the passed value</returns>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseColumnFilter.GetNullCondition(System.String)">
+            <summary>
+            Returns a null condition string to be used in filter expression.
+            </summary>
+            <param name="DataColumnName">Name of the data column.</param>
+            <returns>A string to be used in the filter expression representing a null condition</returns>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseColumnFilter.GetNotNullCondition(System.String)">
+            <summary>
+            Returns a not null condition string to be used in filter expression.
+            </summary>
+            <param name="DataColumnName">Name of the data column.</param>
+            <returns>A string to be used in the filter expression representing a not null condition</returns>
+        </member>
+        <member name="T:DgvFilterPopup.DgvBaseFilterHost">
+             <summary>
+             The base class from which to derive effective <i>filter host</i> controls
+             </summary>
+             <remarks>
+             The purpose of the <i>filter host</i> control is to show a popup near a right-clicked column and to 
+             host child <i>column filter</i> controls. 
+             When the popup is shown, only the <i>column filter</i> control related to right-clicked column
+             is visibile. 
+             <b>DgvBaseFilterHost</b> is a derivation of <b>UserControl</b> and provide functionalities to 
+             cooperate with <see cref="T:DgvFilterPopup.DgvFilterManager"/>.  
+             <para>
+             NOTE: 
+             This class must be intended as an abstract class. However, declaring it as abstract,
+             would generate errors whitin the designer when designing derived classes.
+             </para>
+             <para>
+             In your derivation, you have to provide a host area (such as a panel) and ovverride the 
+             <see cref="P:DgvFilterPopup.DgvBaseFilterHost.FilterClientArea"/> to return it. Also, create visual elements 
+             for <i>remove filter</i>, <i>remove all filters</i>, <i>apply filter</i> and use the 
+             <b>DgvFilterManager</b> methods <see cref="M:DgvFilterPopup.DgvFilterManager.ActivateFilter(System.Boolean)"/> and 
+             <see cref="M:DgvFilterPopup.DgvFilterManager.ActivateAllFilters(System.Boolean)"/>. 
+             </para>
+             </remarks>
+             <example>
+             <code>
+            public partial class DgvFilterHost : DgvBaseFilterHost {
+            
+                public DgvFilterHost() {
+                    InitializeComponent();
+                    this.CurrentColumnFilterChanged += new EventHandler(DgvFilterHost_CurrentColumnFilterChanged);
+                }
+             
+                void DgvFilterHost_CurrentColumnFilterChanged(object sender, EventArgs e) {
+                    lblColumnName.Text = CurrentColumnFilter.OriginalDataGridViewColumnHeaderText;
+                }
+             
+                public override Control FilterClientArea {
+                    get {
+                        return this.panelFilterArea;
+                    }
+                }
+             
+                private void tsOK_Click(object sender, EventArgs e) {
+                    FilterManager.ActivateFilter(true);
+                    this.Popup.Close();
+                }
+             
+                private void tsRemove_Click(object sender, EventArgs e) {
+                    FilterManager.ActivateFilter(false);
+                    this.Popup.Close();
+                }
+             
+                private void tsRemoveAll_Click(object sender, EventArgs e) {
+                    FilterManager.ActivateAllFilters(false);
+                    this.Popup.Close();
+                }
+             
+            }
+             </code>
+             </example>
+        </member>
+        <member name="E:DgvFilterPopup.DgvBaseFilterHost.CurrentColumnFilterChanged">
+            <summary>
+            Occurs when the current visible <i>column filter</i> is changed.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseFilterHost.FilterClientArea">
+            <summary>
+            Return the effective area to which <i>column filters</i> will be added.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseFilterHost.Popup">
+            <summary>
+            Gets the <b>ToolStripDropDown</b> object used to popup the <i>filter host</i>
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseFilterHost.FilterManager">
+            <summary>
+            Gets or sets the <i>filter manger</i> 
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseFilterHost.CurrentColumnFilter">
+            <summary>
+            Gets or sets the currently visibile <i>column filter</i> control
+            </summary> 
+        </member>
+        <member name="P:DgvFilterPopup.DgvBaseFilterHost.SizeDifference">
+            <summary>
+            Gets the original size difference of the <i>filter host</i> and the <see cref="P:DgvFilterPopup.DgvBaseFilterHost.FilterClientArea"/>.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseFilterHost.DoAutoFit">
+            <summary>
+            Performs growing / shrinking of the <i>filter host</i> to best fit the current visibile <i>column filter</i>.
+            </summary>
+            <remarks>
+            Ovverride this method to provide your own resize logic.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseFilterHost.AlignFilter">
+            <summary>
+            Aligns the <i>column filter</i> into the filter client area.
+            </summary>
+            <remarks>
+            Ovverride this method to provide your own alignment logic.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseFilterHost.BitmapToRegion(System.Drawing.Bitmap,System.Drawing.Color)">
+            <summary>
+            Returns a region based on the transparency color of a bitmap.
+            </summary>
+            <param name="bitmap">The bitmap.</param>
+            <param name="transparencyColor">The transparency color.</param>
+            <returns>A region</returns>
+        </member>
+        <member name="M:DgvFilterPopup.DgvBaseFilterHost.RegisterComboBox(System.Windows.Forms.ComboBox)">
+            <summary>
+            Registers the a combo box.
+            </summary>
+            <param name="comboBox">The combo box.</param>
+            <remarks>
+            When the user clicks on an <b>ComboBox</b> item that is outside of the
+            host area, this cause an unwanted closing of the <i>filter host</i>. 
+            If you use a <b>ComboBox</b> in a customized <i>column filter</i>, 
+            be sure to call this method in your filter intitialitazion code.
+            </remarks>
+        </member>
+        <member name="T:DgvFilterPopup.DgvFilterManager">
+            <summary>
+            The main class involved in adding filtering capabilities to a DataGridView.  
+            </summary>
+            <remarks>
+            This is the class that you use to add filtering capabilities to a <b>DataGridView</b>. The
+            <b>DataGridView</b> must be data bound to a <b>DataTable</b>, a <b>DataView</b> or a <b>BindingSource</b> which in turn is
+            bound to one of these two.
+            When you assign a <b>DataGridView</b> to a <b>DgvFilterManager</b>, it attaches some handlers to respond 
+            to right click on column headers and to perform some custom painting on the grid. 
+            When the user right clicks a column header, the <b>DgvFilterManager</b> shows a popup near the column.
+            This popup is a control that serves as host for other controls, one for each column. Only one of
+            these child controls is visibile, based on clicked column. 
+            We have one <i>filter host</i> control and many <i>column filter</i> child controls. 
+            <para>
+            The <i>filter host</i> control must be a derivation of the <see cref="T:DgvFilterPopup.DgvBaseFilterHost"/> class, while filter controls must be
+            derived by the <see cref="T:DgvFilterPopup.DgvBaseColumnFilter"/> class. These two classes don't provide any user interface. 
+            As a default, <b>DgvFilterManager</b> uses the standard derivation <b>DgvFilterHost</b> and, depending on column type and data type,
+            one of the standard derivations: <see cref="T:DgvFilterPopup.DgvTextBoxColumnFilter"/>
+            , <see cref="T:DgvFilterPopup.DgvCheckBoxColumnFilter"/>, <see cref="T:DgvFilterPopup.DgvComboBoxColumnFilter"/> 
+            and <see cref="T:DgvFilterPopup.DgvDateColumnFilter"/>. 
+            </para>
+            <para>
+            When a <b>DataGridView</b> is attached, the manager perform the following actions: 
+            <ul>
+            <li>it creates a <i>filter host</i>, that is an instance of the <b>DgvFilterHost</b> class. If you previously provided a
+            <i>filter host</i>, this step is skipped.</li> 
+            <li>it creates an array of <b>DgvBaseColumnFilter</b>, one per column, and initializes each element to a specialization 
+            of <b>DgvBaseColumnFilter</b>. If <see cref="P:DgvFilterPopup.DgvFilterManager.AutoCreateFilters"/> is false, this step is skipped.
+            </li>
+            </ul>
+            </para>
+            <para>
+            You can force a specific <i>column filter</i> for a certain column, intervening in this process through the events 
+            <see cref="E:DgvFilterPopup.DgvFilterManager.ColumnFilterAdding"/> and <see cref="E:DgvFilterPopup.DgvFilterManager.ColumnFilterAdded"/>. You can also intervene, after the entire process, replacing 
+            a <i>column filter</i> instance in the array with another instance you created. 
+            </para>
+            </remarks>
+        </member>
+        <member name="E:DgvFilterPopup.DgvFilterManager.ColumnFilterAdding">
+            <summary>
+            Occurs when a <i>column filter</i> instance for a column is about to be automatically created.
+            </summary>
+            <remarks>
+            Using this event you can set the <see cref="P:DgvFilterPopup.ColumnFilterEventArgs.ColumnFilter"/> 
+            property to force the <see cref="T:DgvFilterPopup.DgvBaseColumnFilter"/> specialization to use for the 
+            column. 
+            This event is raised only if <see cref="P:DgvFilterPopup.DgvFilterManager.AutoCreateFilters"/> is true.
+            </remarks>
+        </member>
+        <member name="E:DgvFilterPopup.DgvFilterManager.ColumnFilterAdded">
+            <summary>
+            Occurs when a <i>column filter</i> instance is created.
+            This event is raised only if <see cref="P:DgvFilterPopup.DgvFilterManager.AutoCreateFilters"/> is true.
+            </summary>
+        </member>
+        <member name="E:DgvFilterPopup.DgvFilterManager.PopupShowing">
+            <summary>
+            Occurs when the popup is about to be shown
+            </summary>
+            <remarks>
+            Use this event to customize the popup position. Set the Handled property of the event argument to <c>true</c>.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvFilterManager"/> class.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.#ctor(System.Windows.Forms.DataGridView,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvFilterManager"/> class.
+            </summary>
+            <param name="dataGridView">The <b>DataGridView</b> to which attach filtering capabilities</param>
+            <param name="autoCreateFilters">if set to <c>true</c> automatically creates a <i>column filter</i> for each column</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.#ctor(System.Windows.Forms.DataGridView)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvFilterManager"/> class.
+            </summary>
+            <param name="dataGridView">The <b>DataGridView</b> to which attach filtering capabilities.</param>
+        </member>
+        <member name="P:DgvFilterPopup.DgvFilterManager.AutoCreateFilters">
+            <summary>
+            Gets or sets a value indicating whether the manager must create <i>column filters</i>.
+            </summary>
+            <value><c>true</c> by default.</value>
+        </member>
+        <member name="P:DgvFilterPopup.DgvFilterManager.FilterHost">
+            <summary>
+            Gets and sets the <i>filter host</i> to use. 
+            </summary>
+            <remarks>
+            The default <i>filter host</i> is an instance of <see cref="T:DgvFilterPopup.DgvFilterHost"/>
+            </remarks>
+        </member>
+        <member name="P:DgvFilterPopup.DgvFilterManager.DataGridView">
+            <summary>
+            Gets and sets the DataGridView to which apply filtering capabilities.
+            </summary>
+            <remarks>
+            <para>
+            When a <b>DataGridView</b> is attached, the manager perform the following actions: 
+            <ul>
+            <li>it creates a <i>filter host</i>, that is an instance of the <b>DgvFilterHost</b> class. If you previously provided a
+            <i>filter host</i>, this step is skipped.</li> 
+            <li>it creates an array of <b>DgvBaseColumnFilter</b>, one per column, and initializes each element to a specialization 
+            of <b>DgvBaseColumnFilter</b>. If <see cref="P:DgvFilterPopup.DgvFilterManager.AutoCreateFilters"/> is false, this step is skipped.
+            </li>
+            </ul>
+            </para>
+            <para>
+            You can force a specific <i>column filter</i> for a certain column, intervening in this process through the events 
+            <see cref="E:DgvFilterPopup.DgvFilterManager.ColumnFilterAdding"/> and <see cref="E:DgvFilterPopup.DgvFilterManager.ColumnFilterAdded"/>. You can also intervene, after the entire process, replacing 
+            a <i>column filter</i> instance in the array with another instance you created. 
+            </para>
+            </remarks>
+        </member>
+        <member name="P:DgvFilterPopup.DgvFilterManager.BaseFilter">
+            <summary>
+            Gets and sets developer provided filter expression. This expression
+            will be "merged" with end-user created filters.
+            </summary>
+            <value>The base filter.</value>
+        </member>
+        <member name="P:DgvFilterPopup.DgvFilterManager.Item(System.Int32)">
+            <summary>
+            Gets or sets the <i>column filter</i> control related to the ColumnIndex
+            </summary>
+            <param name="ColumnIndex">The index of the <b>DataGridView</b> column</param>
+            <returns>the <b>DgvBaseColumnFilter</b> related to the <b>DataGridView</b> column</returns>
+            <remarks>
+            This indexer allow you to get and set the <i>column filter</i> instance for the column. 
+            You can set one of the standard <i>column filter</i> implementation or an instance 
+            of your own <b>DgvBaseFilterColumn</b> specialization.
+            </remarks>
+        </member>
+        <member name="P:DgvFilterPopup.DgvFilterManager.Item(System.String)">
+            <summary>
+            Gets or sets the <i>column filter</i> control related to the ColumnName
+            </summary>
+            <param name="ColumnName">The name of the <b>DataGridView</b> column</param>
+            <returns>the DgvBaseColumnFilter related to the <b>DataGridView</b> column</returns>
+            <remarks>
+            This indexer allow you to get and set the <i>column filter</i> instance for the column. 
+            You can set one of the standard <i>column filter</i> implementation or an instance 
+            of your own <b>DgvBaseFilterColumn</b> specialization.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.mDataGridView_CellMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
+            <summary>
+            Shows the popup when user right-clicks a column header
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The <see cref="T:System.Windows.Forms.DataGridViewCellMouseEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.OnFilteredGridPaint(System.Object,System.Windows.Forms.DataGridViewCellPaintingEventArgs)">
+            <summary>
+            Paints a funnel icon in the cell origin when some column is filtered.
+            </summary>
+            <param name="sender">The sender</param>
+            <param name="e">The <see cref="T:System.Windows.Forms.DataGridViewCellPaintingEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override this method to provide your own painting
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.OnHighlightedColumnPaint(System.Object,System.Windows.Forms.DataGridViewCellPaintingEventArgs)">
+            <summary>
+            Performs customized column header painting when the popup is visibile. 
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.Windows.Forms.DataGridViewCellPaintingEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override this method to provide your own painting
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.OnFilteredColumnPaint(System.Object,System.Windows.Forms.DataGridViewCellPaintingEventArgs)">
+            <summary>
+            Performs customized column header painting when the column is filtered.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.Windows.Forms.DataGridViewCellPaintingEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override this method to provide your own painting
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.ShowPopup(System.Int32)">
+            <summary>
+            Shows the popup.
+            </summary>
+            <param name="ColumnIndex">Index of the column.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.ActivateFilter(System.Boolean,System.Int32)">
+            <summary>
+            Activates / Deactivates the filter for the column specified by ColumnIndex.
+            </summary>
+            <param name="Active">The active state to set</param>
+            <param name="ColumnIndex">Index of the column.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.ActivateFilter(System.Boolean,System.String)">
+            <summary>
+            Activates / Deactivates the filter for the column specified by ColumnName.
+            </summary>
+            <param name="Active">The active state to set</param>
+            <param name="ColumnName">Name of the column.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.ActivateFilter(System.Boolean)">
+            <summary>
+            Activates / Deactivates the filter for the current, that is last right-clicked, column.
+            </summary>
+            <param name="Active">The active state to set</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.ActivateAllFilters(System.Boolean)">
+            <summary>
+            Activates / Deactivates all filters.
+            </summary>
+            <param name="Active">The active state to set</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterManager.RebuildFilter">
+            <summary>
+            Rebuilds the whole filter expression.
+            </summary>
+            <remarks>
+            The whole filter expression is the conjunction of each <i>column filter</i> and the <see cref="P:DgvFilterPopup.DgvFilterManager.BaseFilter"/>. 
+            Call this method to refresh and apply the whole filter expression.
+            </remarks>
+        </member>
+        <member name="P:DgvFilterPopup.DgvFilterManager.FunnelPicture">
+            <summary>
+            Gets a funnel picture.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.DgvDateRangeColumnFilter">
+            <summary>
+            An extended <i>column filter</i> implementation allowing filters on date ranges.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateRangeColumnFilter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvDateRangeColumnFilter"/> class.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvDateRangeColumnFilter.ComboBoxOperator">
+            <summary>
+            Gets the ComboBox control containing the available operators.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvDateRangeColumnFilter.DateTimePickerValue">
+            <summary>
+            Gets the DateTimePicker control containing the date value.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvDateRangeColumnFilter.DateTimePickerValue2">
+            <summary>
+            Gets the DateTimePicker control containing the second date value.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateRangeColumnFilter.OnFilterInitializing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Perform filter initialitazion and raises the FilterInitializing event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            When this <i>column filter</i> control is added to the <i>column filters</i> array of the <i>filter manager</i>,
+            the latter calls the <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.Init(DgvFilterPopup.DgvFilterManager,DgvFilterPopup.DgvBaseFilterHost,System.Windows.Forms.DataGridViewColumn,System.Data.DataView)"/> method which, in turn, calls this method.
+            You can ovverride this method to provide initialization code or you can create an event handler and 
+            set the <i>Cancel</i> property of event argument to true, to skip standard initialization.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateRangeColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Builds the filter expression and raises the FilterExpressionBuilding event
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override <b>OnFilterExpressionBuilding</b> to provide a filter expression construction
+            logic and to set the values of the <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression"/> and <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption"/> properties.
+            The <see cref="T:DgvFilterPopup.DgvFilterManager"/> will use these properties in constructing the whole filter expression and to change the header text of the filtered column.
+            Otherwise, you can create an event handler and set the <i>Cancel</i> property of event argument to true, to skip standard filter expression building logic.
+            </remarks>
+        </member>
+        <member name="F:DgvFilterPopup.DgvDateRangeColumnFilter.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateRangeColumnFilter.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateRangeColumnFilter.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.DgvMonthYearColumnFilter">
+            <summary>
+            An extended <i>column filter</i> implementation allowing filters on date, using months and years.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvMonthYearColumnFilter.MonthCsvList">
+            <summary>
+            Gets or sets the month comma separated list. 
+            </summary>
+            <value>The month CSV list.</value>
+            <remarks>
+            Allows you to set once your culture-specific comma separated list of months. 
+            </remarks>
+        </member>
+        <member name="P:DgvFilterPopup.DgvMonthYearColumnFilter.YearMin">
+            <summary>
+            Gets or sets the minimum year shown in the years combo.
+            </summary>
+            <value>The year min.</value>
+        </member>
+        <member name="P:DgvFilterPopup.DgvMonthYearColumnFilter.YearMax">
+            <summary>
+            Gets or sets the maximum year shown in the years combo.
+            </summary>
+            <value>The year min.</value>
+        </member>
+        <member name="M:DgvFilterPopup.DgvMonthYearColumnFilter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvMonthYearColumnFilter"/> class.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvMonthYearColumnFilter.ComboBoxMonth">
+            <summary>
+            Gets the ComboBox control containing the months list.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvMonthYearColumnFilter.ComboBoxYear">
+            <summary>
+            Gets the ComboBox control containing the years list.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvMonthYearColumnFilter.OnFilterInitializing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Perform filter initialitazion and raises the FilterInitializing event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            When this <i>column filter</i> control is added to the <i>column filters</i> array of the <i>filter manager</i>,
+            the latter calls the <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.Init(DgvFilterPopup.DgvFilterManager,DgvFilterPopup.DgvBaseFilterHost,System.Windows.Forms.DataGridViewColumn,System.Data.DataView)"/> method which, in turn, calls this method.
+            You can ovverride this method to provide initialization code or you can create an event handler and 
+            set the <i>Cancel</i> property of event argument to true, to skip standard initialization.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvMonthYearColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Builds the filter expression and raises the FilterExpressionBuilding event
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override <b>OnFilterExpressionBuilding</b> to provide a filter expression construction
+            logic and to set the values of the <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression"/> and <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption"/> properties.
+            The <see cref="T:DgvFilterPopup.DgvFilterManager"/> will use these properties in constructing the whole filter expression and to change the header text of the filtered column.
+            Otherwise, you can create an event handler and set the <i>Cancel</i> property of event argument to true, to skip standard filter expression building logic.
+            </remarks>
+        </member>
+        <member name="F:DgvFilterPopup.DgvMonthYearColumnFilter.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvMonthYearColumnFilter.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvMonthYearColumnFilter.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.DgvNumRangeColumnFilter">
+            <summary>
+            An extended <i>column filter</i> implementation allowing filters on numeric ranges.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvNumRangeColumnFilter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvNumRangeColumnFilter"/> class.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvNumRangeColumnFilter.ComboBoxOperator">
+            <summary>
+            Gets the ComboBox control containing the available operators.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvNumRangeColumnFilter.TextBoxValue">
+            <summary>
+            Gets the TextBox control containing the first value.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvNumRangeColumnFilter.TextBoxValue2">
+            <summary>
+            Gets the TextBox control containing the second value.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvNumRangeColumnFilter.OnFilterInitializing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Perform filter initialitazion and raises the FilterInitializing event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            When this <i>column filter</i> control is added to the <i>column filters</i> array of the <i>filter manager</i>,
+            the latter calls the <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.Init(DgvFilterPopup.DgvFilterManager,DgvFilterPopup.DgvBaseFilterHost,System.Windows.Forms.DataGridViewColumn,System.Data.DataView)"/> method which, in turn, calls this method.
+            You can ovverride this method to provide initialization code or you can create an event handler and 
+            set the <i>Cancel</i> property of event argument to true, to skip standard initialization.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvNumRangeColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Builds the filter expression and raises the FilterExpressionBuilding event
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override <b>OnFilterExpressionBuilding</b> to provide a filter expression construction
+            logic and to set the values of the <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression"/> and <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption"/> properties.
+            The <see cref="T:DgvFilterPopup.DgvFilterManager"/> will use these properties in constructing the whole filter expression and to change the header text of the filtered column.
+            Otherwise, you can create an event handler and set the <i>Cancel</i> property of event argument to true, to skip standard filter expression building logic.
+            </remarks>
+        </member>
+        <member name="F:DgvFilterPopup.DgvNumRangeColumnFilter.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvNumRangeColumnFilter.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvNumRangeColumnFilter.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.DgvCheckBoxColumnFilter">
+            <summary>
+            A standard <i>column filter</i> implementation for checkbox columns.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvCheckBoxColumnFilter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvCheckBoxColumnFilter"/> class.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvCheckBoxColumnFilter.ComboBoxOperator">
+            <summary>
+            Gets the ComboBox control containing the available operators.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvCheckBoxColumnFilter.CheckBoxValue">
+            <summary>
+            Gets the CheckBox control containing the checked value.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvCheckBoxColumnFilter.OnFilterInitializing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Perform filter initialitazion and raises the FilterInitializing event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            When this <i>column filter</i> control is added to the <i>column filters</i> array of the <i>filter manager</i>,
+            the latter calls the <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.Init(DgvFilterPopup.DgvFilterManager,DgvFilterPopup.DgvBaseFilterHost,System.Windows.Forms.DataGridViewColumn,System.Data.DataView)"/> method which, in turn, calls this method.
+            You can ovverride this method to provide initialization code or you can create an event handler and 
+            set the <i>Cancel</i> property of event argument to true, to skip standard initialization.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvCheckBoxColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Builds the filter expression and raises the FilterExpressionBuilding event
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override <b>OnFilterExpressionBuilding</b> to provide a filter expression construction
+            logic and to set the values of the <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression"/> and <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption"/> properties.
+            The <see cref="T:DgvFilterPopup.DgvFilterManager"/> will use these properties in constructing the whole filter expression and to change the header text of the filtered column.
+            Otherwise, you can create an event handler and set the <i>Cancel</i> property of event argument to true, to skip standard filter expression building logic.
+            </remarks>
+        </member>
+        <member name="F:DgvFilterPopup.DgvCheckBoxColumnFilter.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvCheckBoxColumnFilter.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvCheckBoxColumnFilter.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.DgvComboBoxColumnFilter">
+            <summary>
+            A standard <i>column filter</i> implementation for ComboBox columns.
+            </summary>
+            <remarks>
+            If the <b>DataGridView</b> column to which this <i>column filter</i> is applied
+            is not a ComboBox column, it automatically creates a distinct list of values from the bound <b>DataView</b> column.
+            If the DataView changes, you should do an explicit call to <see cref="M:DgvFilterPopup.DgvComboBoxColumnFilter.RefreshValues"/> method.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvComboBoxColumnFilter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvComboBoxColumnFilter"/> class.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvComboBoxColumnFilter.ComboBoxOperator">
+            <summary>
+            Gets the ComboBox control containing the available operators.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvComboBoxColumnFilter.ComboBoxValue">
+            <summary>
+            Gets the ComboBox control containing the available values.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvComboBoxColumnFilter.OnFilterInitializing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Perform filter initialitazion and raises the FilterInitializing event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            When this <i>column filter</i> control is added to the <i>column filters</i> array of the <i>filter manager</i>,
+            the latter calls the <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.Init(DgvFilterPopup.DgvFilterManager,DgvFilterPopup.DgvBaseFilterHost,System.Windows.Forms.DataGridViewColumn,System.Data.DataView)"/> method which, in turn, calls this method.
+            You can ovverride this method to provide initialization code or you can create an event handler and 
+            set the <i>Cancel</i> property of event argument to true, to skip standard initialization.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvComboBoxColumnFilter.RefreshValues">
+            <summary>
+            For non-combobox columns, refreshes the list of the <b>DataView</b> values in the column.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvComboBoxColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Builds the filter expression and raises the FilterExpressionBuilding event
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override <b>OnFilterExpressionBuilding</b> to provide a filter expression construction
+            logic and to set the values of the <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression"/> and <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption"/> properties.
+            The <see cref="T:DgvFilterPopup.DgvFilterManager"/> will use these properties in constructing the whole filter expression and to change the header text of the filtered column.
+            Otherwise, you can create an event handler and set the <i>Cancel</i> property of event argument to true, to skip standard filter expression building logic.
+            </remarks>
+        </member>
+        <member name="F:DgvFilterPopup.DgvComboBoxColumnFilter.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvComboBoxColumnFilter.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvComboBoxColumnFilter.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.DgvDateColumnFilter">
+            <summary>
+            A standard <i>column filter</i> implementation for date columns.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateColumnFilter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvDateColumnFilter"/> class.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvDateColumnFilter.ComboBoxOperator">
+            <summary>
+            Gets the ComboBox control containing the available operators.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvDateColumnFilter.DateTimePickerValue">
+            <summary>
+            Gets the DateTimePicker control containing the date value.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateColumnFilter.OnFilterInitializing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Perform filter initialitazion and raises the FilterInitializing event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            When this <i>column filter</i> control is added to the <i>column filters</i> array of the <i>filter manager</i>,
+            the latter calls the <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.Init(DgvFilterPopup.DgvFilterManager,DgvFilterPopup.DgvBaseFilterHost,System.Windows.Forms.DataGridViewColumn,System.Data.DataView)"/> method which, in turn, calls this method.
+            You can ovverride this method to provide initialization code or you can create an event handler and 
+            set the <i>Cancel</i> property of event argument to true, to skip standard initialization.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Builds the filter expression and raises the FilterExpressionBuilding event
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override <b>OnFilterExpressionBuilding</b> to provide a filter expression construction
+            logic and to set the values of the <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression"/> and <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption"/> properties.
+            The <see cref="T:DgvFilterPopup.DgvFilterManager"/> will use these properties in constructing the whole filter expression and to change the header text of the filtered column.
+            Otherwise, you can create an event handler and set the <i>Cancel</i> property of event argument to true, to skip standard filter expression building logic.
+            </remarks>
+        </member>
+        <member name="F:DgvFilterPopup.DgvDateColumnFilter.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateColumnFilter.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvDateColumnFilter.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.DgvFilterHost">
+            <summary>
+            Is the standard implementation of DgvBaseFilterHost
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterHost.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvFilterHost"/> class.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvFilterHost.FilterClientArea">
+            <summary>
+            Return the effective area to which the <i>column filters</i> will be added.
+            </summary>
+            <value></value>
+        </member>
+        <member name="F:DgvFilterPopup.DgvFilterHost.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterHost.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvFilterHost.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:DgvFilterPopup.DgvTextBoxColumnFilter">
+            <summary>
+            A standard <i>column filter</i> implementation for textbox columns.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvTextBoxColumnFilter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DgvFilterPopup.DgvTextBoxColumnFilter"/> class.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvTextBoxColumnFilter.ComboBoxOperator">
+            <summary>
+            Gets the ComboBox control containing the available operators.
+            </summary>
+        </member>
+        <member name="P:DgvFilterPopup.DgvTextBoxColumnFilter.TextBoxValue">
+            <summary>
+            Gets the TextBox control containing the value.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvTextBoxColumnFilter.OnFilterInitializing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Perform filter initialitazion and raises the FilterInitializing event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            When this <i>column filter</i> control is added to the <i>column filters</i> array of the <i>filter manager</i>,
+            the latter calls the <see cref="M:DgvFilterPopup.DgvBaseColumnFilter.Init(DgvFilterPopup.DgvFilterManager,DgvFilterPopup.DgvBaseFilterHost,System.Windows.Forms.DataGridViewColumn,System.Data.DataView)"/> method which, in turn, calls this method.
+            You can ovverride this method to provide initialization code or you can create an event handler and 
+            set the <i>Cancel</i> property of event argument to true, to skip standard initialization.
+            </remarks>
+        </member>
+        <member name="M:DgvFilterPopup.DgvTextBoxColumnFilter.OnFilterExpressionBuilding(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Builds the filter expression and raises the FilterExpressionBuilding event
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+            <remarks>
+            Override <b>OnFilterExpressionBuilding</b> to provide a filter expression construction
+            logic and to set the values of the <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterExpression"/> and <see cref="P:DgvFilterPopup.DgvBaseColumnFilter.FilterCaption"/> properties.
+            The <see cref="T:DgvFilterPopup.DgvFilterManager"/> will use these properties in constructing the whole filter expression and to change the header text of the filtered column.
+            Otherwise, you can create an event handler and set the <i>Cancel</i> property of event argument to true, to skip standard filter expression building logic.
+            </remarks>
+        </member>
+        <member name="F:DgvFilterPopup.DgvTextBoxColumnFilter.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DgvFilterPopup.DgvTextBoxColumnFilter.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DgvFilterPopup.DgvTextBoxColumnFilter.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>
