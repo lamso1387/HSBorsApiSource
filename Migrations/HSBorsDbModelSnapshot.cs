@@ -45,13 +45,59 @@ namespace HSBors.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("id");
 
                     b.HasIndex("accounter_id");
 
                     b.HasIndex("fund_id");
 
+                    b.HasIndex("name", "creator_id", "fund_id")
+                        .IsUnique()
+                        .HasFilter("[name] IS NOT NULL");
+
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("HSBors.Models.Convention", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("bank_copartner_intrest");
+
+                    b.Property<int?>("bank_copartner_percent");
+
+                    b.Property<DateTime>("create_date");
+
+                    b.Property<long>("creator_id");
+
+                    b.Property<long>("first_user_id");
+
+                    b.Property<long?>("modifier_id");
+
+                    b.Property<DateTime?>("modify_date");
+
+                    b.Property<long>("second_user_id");
+
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("first_user_id");
+
+                    b.HasIndex("second_user_id");
+
+                    b.HasIndex("creator_id", "first_user_id", "second_user_id")
+                        .IsUnique();
+
+                    b.ToTable("Conventions");
                 });
 
             modelBuilder.Entity("HSBors.Models.Deposit", b =>
@@ -77,6 +123,10 @@ namespace HSBors.Migrations
                     b.Property<int>("status");
 
                     b.Property<long>("unit_cost_id");
+
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("id");
 
@@ -110,12 +160,50 @@ namespace HSBors.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("id");
 
-                    b.HasIndex("name")
+                    b.HasIndex("name", "creator_id")
                         .IsUnique();
 
                     b.ToTable("Funds");
+                });
+
+            modelBuilder.Entity("HSBors.Models.Gainer", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("create_date");
+
+                    b.Property<long>("creator_id");
+
+                    b.Property<long?>("modifier_id");
+
+                    b.Property<DateTime?>("modify_date");
+
+                    b.Property<long>("primary_user_id");
+
+                    b.Property<long>("secondary_user_id");
+
+                    b.Property<int>("status");
+
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("secondary_user_id");
+
+                    b.HasIndex("primary_user_id", "secondary_user_id")
+                        .IsUnique();
+
+                    b.ToTable("Gainers");
                 });
 
             modelBuilder.Entity("HSBors.Models.Payment", b =>
@@ -142,6 +230,10 @@ namespace HSBors.Migrations
 
                     b.Property<long>("type_id");
 
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("id");
 
                     b.HasIndex("date");
@@ -159,15 +251,13 @@ namespace HSBors.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("Userid");
+
                     b.Property<long>("amount");
 
-                    b.Property<long?>("bank_copartner_id");
-
-                    b.Property<int?>("bank_copartner_intrest");
-
-                    b.Property<int?>("bank_copartner_percent");
-
                     b.Property<long>("buyer_id");
+
+                    b.Property<long?>("convention_id");
 
                     b.Property<DateTime>("create_date");
 
@@ -179,15 +269,57 @@ namespace HSBors.Migrations
 
                     b.Property<DateTime?>("modify_date");
 
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("id");
 
-                    b.HasIndex("bank_copartner_id");
+                    b.HasIndex("Userid");
 
                     b.HasIndex("buyer_id");
+
+                    b.HasIndex("convention_id");
 
                     b.HasIndex("deposit_id");
 
                     b.ToTable("Purchases");
+                });
+
+            modelBuilder.Entity("HSBors.Models.Role", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("accesses")
+                        .IsRequired();
+
+                    b.Property<DateTime>("create_date");
+
+                    b.Property<long>("creator_id");
+
+                    b.Property<long?>("modifier_id");
+
+                    b.Property<DateTime?>("modify_date");
+
+                    b.Property<string>("name")
+                        .IsRequired();
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("name")
+                        .IsUnique();
+
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("HSBors.Models.Setting", b =>
@@ -215,6 +347,10 @@ namespace HSBors.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("value")
                         .IsRequired();
 
@@ -238,8 +374,6 @@ namespace HSBors.Migrations
 
                     b.Property<long>("creator_id");
 
-                    b.Property<DateTime>("date");
-
                     b.Property<long>("fund_id");
 
                     b.Property<long>("issue_cost");
@@ -248,9 +382,18 @@ namespace HSBors.Migrations
 
                     b.Property<DateTime?>("modify_date");
 
+                    b.Property<string>("pdate")
+                        .IsRequired();
+
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("id");
 
-                    b.HasIndex("fund_id", "date")
+                    b.HasIndex("fund_id");
+
+                    b.HasIndex("pdate", "creator_id", "fund_id")
                         .IsUnique();
 
                     b.ToTable("UnitCosts");
@@ -283,20 +426,61 @@ namespace HSBors.Migrations
 
                     b.Property<DateTime?>("modify_date");
 
-                    b.Property<string>("password_hash")
+                    b.Property<string>("national_code")
+                        .IsRequired()
+                        .IsFixedLength(true)
+                        .HasMaxLength(10);
+
+                    b.Property<byte[]>("password_hash")
+                        .IsRequired();
+
+                    b.Property<byte[]>("password_salt")
                         .IsRequired();
 
                     b.Property<int>("status");
 
-                    b.Property<string>("username")
-                        .IsRequired();
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("id");
 
-                    b.HasIndex("username")
+                    b.HasIndex("national_code")
                         .IsUnique();
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("HSBors.Models.UserRole", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("create_date");
+
+                    b.Property<long>("creator_id");
+
+                    b.Property<long?>("modifier_id");
+
+                    b.Property<DateTime?>("modify_date");
+
+                    b.Property<long>("role_id");
+
+                    b.Property<string>("update_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<long>("user_id");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("role_id");
+
+                    b.HasIndex("user_id", "role_id")
+                        .IsUnique();
+
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("HSBors.Models.Account", b =>
@@ -312,6 +496,19 @@ namespace HSBors.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("HSBors.Models.Convention", b =>
+                {
+                    b.HasOne("HSBors.Models.User", "first_user")
+                        .WithMany("first_conventions")
+                        .HasForeignKey("first_user_id")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("HSBors.Models.User", "second_user")
+                        .WithMany("second_conventions")
+                        .HasForeignKey("second_user_id")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("HSBors.Models.Deposit", b =>
                 {
                     b.HasOne("HSBors.Models.Account", "account")
@@ -322,6 +519,19 @@ namespace HSBors.Migrations
                     b.HasOne("HSBors.Models.UnitCost", "unit_cost")
                         .WithMany("deposits")
                         .HasForeignKey("unit_cost_id")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("HSBors.Models.Gainer", b =>
+                {
+                    b.HasOne("HSBors.Models.User", "primary_user")
+                        .WithMany("primary_gainers")
+                        .HasForeignKey("primary_user_id")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("HSBors.Models.User", "secondary_user")
+                        .WithMany("secondary_gainers")
+                        .HasForeignKey("secondary_user_id")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -340,14 +550,19 @@ namespace HSBors.Migrations
 
             modelBuilder.Entity("HSBors.Models.Purchase", b =>
                 {
-                    b.HasOne("HSBors.Models.User", "bank_copartner")
+                    b.HasOne("HSBors.Models.User")
                         .WithMany("bank_partnerships")
-                        .HasForeignKey("bank_copartner_id")
+                        .HasForeignKey("Userid")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HSBors.Models.User", "buyer")
                         .WithMany("purchases")
                         .HasForeignKey("buyer_id")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("HSBors.Models.Convention", "convention")
+                        .WithMany("purchases")
+                        .HasForeignKey("convention_id")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HSBors.Models.Deposit", "deposit")
@@ -361,6 +576,19 @@ namespace HSBors.Migrations
                     b.HasOne("HSBors.Models.Fund", "fund")
                         .WithMany("unit_costs")
                         .HasForeignKey("fund_id")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("HSBors.Models.UserRole", b =>
+                {
+                    b.HasOne("HSBors.Models.Role", "role")
+                        .WithMany("user_roles")
+                        .HasForeignKey("role_id")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("HSBors.Models.User", "user")
+                        .WithMany("user_roles")
+                        .HasForeignKey("user_id")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

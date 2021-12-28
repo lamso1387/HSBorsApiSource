@@ -6,6 +6,179 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\Projects\HSBors\host</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\Projects\HSBors\Api\host</_PublishTargetUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>04/23/2020 21:54:23</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>05/17/2020 01:35:19</publishTime>
+    </File>
+    <File Include="Bunifu.Core.dll">
+      <publishTime>09/19/2018 21:17:20</publishTime>
+    </File>
+    <File Include="Bunifu_UI_v1.5.3.dll">
+      <publishTime>09/19/2018 21:19:30</publishTime>
+    </File>
+    <File Include="dotnet-aspnet-codegenerator-design.dll">
+      <publishTime>09/24/2019 19:57:52</publishTime>
+    </File>
+    <File Include="EntityFramework.dll">
+      <publishTime>03/25/2015 18:17:36</publishTime>
+    </File>
+    <File Include="ExcelLibrary.dll">
+      <publishTime>05/08/2017 21:58:56</publishTime>
+    </File>
+    <File Include="HSBors.deps.json">
+      <publishTime>12/14/2020 23:40:32</publishTime>
+    </File>
+    <File Include="HSBors.dll">
+      <publishTime>12/14/2020 23:40:29</publishTime>
+    </File>
+    <File Include="HSBors.exe">
+      <publishTime>12/14/2020 23:40:29</publishTime>
+    </File>
+    <File Include="HSBors.pdb">
+      <publishTime>12/14/2020 23:40:29</publishTime>
+    </File>
+    <File Include="HSBors.runtimeconfig.json">
+      <publishTime>08/29/2020 09:25:22</publishTime>
+    </File>
+    <File Include="log4net.dll">
+      <publishTime>01/26/2018 09:25:22</publishTime>
+    </File>
+    <File Include="Microsoft.Bcl.AsyncInterfaces.dll">
+      <publishTime>09/13/2019 13:57:48</publishTime>
+    </File>
+    <File Include="Microsoft.Build.dll">
+      <publishTime>04/23/2020 23:04:02</publishTime>
+    </File>
+    <File Include="Microsoft.Build.Framework.dll">
+      <publishTime>04/23/2020 23:03:54</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.CSharp.Workspaces.dll">
+      <publishTime>05/01/2018 03:59:02</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.Workspaces.dll">
+      <publishTime>05/01/2018 03:59:04</publishTime>
+    </File>
+    <File Include="Microsoft.Exchange.WebServices.Auth.dll">
+      <publishTime>12/19/2014 18:02:34</publishTime>
+    </File>
+    <File Include="Microsoft.Exchange.WebServices.dll">
+      <publishTime>12/19/2014 18:02:34</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Logging.EventLog.dll">
+      <publishTime>06/07/2018 11:57:02</publishTime>
+    </File>
+    <File Include="Microsoft.OpenApi.dll">
+      <publishTime>09/16/2019 03:55:40</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll">
+      <publishTime>09/24/2019 19:57:20</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Core.dll">
+      <publishTime>09/24/2019 19:57:24</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.dll">
+      <publishTime>09/24/2019 19:57:28</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll">
+      <publishTime>09/24/2019 19:57:26</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll">
+      <publishTime>09/24/2019 19:57:22</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll">
+      <publishTime>09/24/2019 19:57:20</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll">
+      <publishTime>09/24/2019 19:57:30</publishTime>
+    </File>
+    <File Include="Newtonsoft.Json.dll">
+      <publishTime>11/09/2019 12:26:44</publishTime>
+    </File>
+    <File Include="NuGet.Frameworks.dll">
+      <publishTime>04/25/2018 08:57:10</publishTime>
+    </File>
+    <File Include="sample.accdb">
+      <publishTime>12/08/2017 21:12:13</publishTime>
+    </File>
+    <File Include="SRL.dll">
+      <publishTime>12/14/2020 23:40:12</publishTime>
+    </File>
+    <File Include="SRL.dll.config">
+      <publishTime>12/07/2018 12:40:49</publishTime>
+    </File>
+    <File Include="SRL.pdb">
+      <publishTime>12/14/2020 23:40:12</publishTime>
+    </File>
+    <File Include="SRL.xml">
+      <publishTime>12/14/2020 23:40:11</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.Swagger.dll">
+      <publishTime>04/21/2020 10:55:28</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.SwaggerGen.dll">
+      <publishTime>04/21/2020 10:55:30</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.SwaggerUI.dll">
+      <publishTime>04/21/2020 10:55:32</publishTime>
+    </File>
+    <File Include="System.Composition.AttributedModel.dll">
+      <publishTime>11/05/2016 15:25:42</publishTime>
+    </File>
+    <File Include="System.Composition.Convention.dll">
+      <publishTime>11/05/2016 15:25:42</publishTime>
+    </File>
+    <File Include="System.Composition.Hosting.dll">
+      <publishTime>11/05/2016 15:25:42</publishTime>
+    </File>
+    <File Include="System.Composition.Runtime.dll">
+      <publishTime>11/05/2016 15:25:44</publishTime>
+    </File>
+    <File Include="System.Composition.TypedParts.dll">
+      <publishTime>11/05/2016 15:25:46</publishTime>
+    </File>
+    <File Include="System.Data.SQLite.dll">
+      <publishTime>12/08/2017 21:12:13</publishTime>
+    </File>
+    <File Include="System.Diagnostics.EventLog.dll">
+      <publishTime>05/16/2018 00:59:42</publishTime>
+    </File>
+    <File Include="System.Linq.Dynamic.Core.dll">
+      <publishTime>07/27/2020 19:07:32</publishTime>
+    </File>
+    <File Include="System.Net.Http.Formatting.dll">
+      <publishTime>11/28/2018 13:00:36</publishTime>
+    </File>
+    <File Include="System.Runtime.CompilerServices.Unsafe.dll">
+      <publishTime>09/13/2019 14:10:02</publishTime>
+    </File>
+    <File Include="System.Security.AccessControl.dll">
+      <publishTime>11/15/2019 08:54:14</publishTime>
+    </File>
+    <File Include="System.Security.Permissions.dll">
+      <publishTime>11/15/2019 08:37:44</publishTime>
+    </File>
+    <File Include="System.Security.Principal.Windows.dll">
+      <publishTime>11/15/2019 08:56:10</publishTime>
+    </File>
+    <File Include="System.Text.Encodings.Web.dll">
+      <publishTime>09/13/2019 13:58:36</publishTime>
+    </File>
+    <File Include="System.Text.Json.dll">
+      <publishTime>09/13/2019 13:58:40</publishTime>
+    </File>
+    <File Include="System.Threading.AccessControl.dll">
+      <publishTime>05/16/2018 00:59:46</publishTime>
+    </File>
+    <File Include="System.Web.Http.dll">
+      <publishTime>11/28/2018 13:01:00</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>12/14/2020 23:40:32</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

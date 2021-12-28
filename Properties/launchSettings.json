@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/deposit/test",
+      "launchUrl": "api/deposit/test_no_db",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -1,0 +1,27 @@
+﻿     protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            var context = Startup.HSBorsDbContext;
+            var query = context.Purchases.Include(c=>c.convention)
+                .Where(z => z.convention != null).GroupBy(x => new { x.buyer_id, x.convention.second_user_id })
+                 .Select(g => g.OrderByDescending(p => p.create_date).FirstOrDefault());
+            foreach (var item_ in query)
+            {
+                var contextSaver = Startup.HSBorsDbContext;
+                var item = contextSaver.Purchases.Find(item_.id);
+                Convention conv = new Convention
+                {
+                    bank_copartner_intrest = item.convention.bank_copartner_intrest,
+                    bank_copartner_percent = item.convention.bank_copartner_percent
+                ,
+                    first_user_id = item.buyer_id,
+                    second_user_id = (long)item.convention.second_user_id
+
+                };
+
+                item.convention = conv;
+                contextSaver.SaveChanges();
+            }
+
+            //migrationBuilder.Sql("UPDATE ...");
+
+        }

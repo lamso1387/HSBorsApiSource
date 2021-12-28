@@ -17,6 +17,13 @@ using System.Reflection;
 using System.IO;
 using Newtonsoft.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using System.Security.Principal;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using HSBors.Middleware;
+using HSBors.Services;
 
 namespace HSBors
 {
@@ -26,51 +33,67 @@ namespace HSBors
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
+            HSBorsDbContext = GetContext(Configuration);
 
+        }
+        HSBorsDb GetContext(IConfiguration configuration)
+        { 
+            return SRL.Database.CreateContext<HSBorsDb>(configuration, Constants.Setting.HsborsDbConfugrationValue);
+        }
+        public static HSBorsDb HSBorsDbContext { get; set; }
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
+        { 
+            // configure DI for application services for Authentication or midleware to inject UserService:
+            services.AddScoped<UserService>();
+            services.AddScoped<ILogger, Logger<DefaultController>>();
+
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;//disables asp core automatic bad request
-            });
-
+            }); 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(options =>
                 {
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();//avoid cameCase or Uppercase or any convert just default
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;//avoid loop in db entity load reference foriegn entity (because of Include) BUT not works . use  [JsonIgnore] in properties instead or select new properies to return
                     options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());//convert enum to api in api responce
                     options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;//not result null item in api resporce
-                   // options.SerializerSettings.MissingMemberHandling = Newtonsoft.Json.MissingMemberHandling.Error;//set request input to null if request has extra fields
+                                                                                                            // options.SerializerSettings.MissingMemberHandling = Newtonsoft.Json.MissingMemberHandling.Error;//set request input to null if request has extra fields
 
                 });
-                 
-                
+
 
             services.AddDbContext<HSBorsDb>(builder =>
             {
-                builder.UseSqlServer(Configuration["AppSettings:HSBorsConnectionString"]);
+                builder.UseSqlServer(Configuration[Constants.Setting.HsborsDbConfugrationValue]);
             });
-
-            services.AddScoped<ILogger, Logger<DepositController>>();
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "HSBors API", Version = "v1" });
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Tarh API", Version = "v1" });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
+                //addedby me: Also you need to enable building of xmldocs in your project's properties
               //  options.IncludeXmlComments(xmlPath);
             });
+
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger Logger)
+        { 
+            app.UseCors(builder => builder.WithOrigins("http://localhost").AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+            
+            app.UseGetRoutesMiddleware(GetRoutes);
+             app.UseMiddleware<CustomAuthenticationMiddleware>();
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -81,22 +104,34 @@ namespace HSBors
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseMvc(GetRoutes);
+ 
 
             app.UseSwagger();
             app.UseSwaggerUI(options =>
                         {
-                            options.SwaggerEndpoint("/swagger/v1/swagger.json", "HSBors API V1");
+                            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tarh API V1");
                         });
 
-            
+
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<HSBorsDb>();
                 context.Database.Migrate();
 
             }
+
+
         }
+
+        private readonly Action<IRouteBuilder> GetRoutes =
+    routes =>
+    {
+        routes.MapRoute(
+        name: "default",
+        template: "{controller=deposit}/{action=test}/{id?}");
+    };
     }
 #pragma warning restore CS1591
 

@@ -4,6 +4,14 @@
         <name>SRL</name>
     </assembly>
     <members>
+        <member name="M:SRL.Database.UpdateConnectionString(System.String,System.String,System.Windows.Forms.Control)">
+            <summary>
+            
+            </summary>
+            <param name="conStr">metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string="data source=.\SOHEILLAMSO;initial catalog=Semnan;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"</param>
+            <param name="conStrName">e.g. SemnanEntity</param>
+            <param name="control_to_load"></param>
+        </member>
         <member name="T:SRL.SchedulerManager.Job">
             <summary>
             Classes which extend this abstract class are Jobs which will be
@@ -965,9 +973,6 @@
             use CallAwaitble for task action otherwise use thise
             </summary>
         </member>
-        <member name="M:SRL.ActionManagement.MethodCall.AsynceLoader.CallAwaitable(System.Func{System.Threading.Tasks.Task},System.Action,System.Action{System.Exception})">
-            <param name="act">a function whith task output</param>
-        </member>
         <member name="F:SRL.WinUI.FormClass.EnableFadeShowForm.components">
             <summary>
             Required designer variable.
@@ -1311,14 +1316,6 @@
             </summary>
             <typeparam name="TDbContext"></typeparam>
             <typeparam name="TConfiguration"></typeparam>
-        </member>
-        <member name="M:SRL.Database.UpdateConnectionString(System.String,System.String,System.Windows.Forms.Control)">
-            <summary>
-            
-            </summary>
-            <param name="conStr">metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string="data source=.\SOHEILLAMSO;initial catalog=Semnan;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"</param>
-            <param name="conStrName">e.g. SemnanEntity</param>
-            <param name="control_to_load"></param>
         </member>
         <member name="M:SRL.AccessManagement.LoadDGVFromAccess(System.Windows.Forms.OpenFileDialog,System.Windows.Forms.Label,SRL.KeyValue.DataTableHeaderCheckType,System.String[],System.Windows.Forms.DataGridView,System.Windows.Forms.Label,System.String)">
             <summary>

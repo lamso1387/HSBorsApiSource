@@ -15,11 +15,11 @@ namespace HSBors
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args)
+            CreateWebHostBuilder(args) 
                 .UseKestrel()
                 .UseIISIntegration()
                 .Build()
-                .Run(); 
+                .Run();
 
         }
 

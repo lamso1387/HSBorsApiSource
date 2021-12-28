@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\HSBors\\HSBorsApi\\HSBors\\HSBors.csproj": {}
+    "D:\\Projects\\HSBors\\Api\\HSBors\\HSBors.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\HSBors\\HSBorsApi\\HSBors\\HSBors.csproj": {
+    "D:\\Projects\\HSBors\\Api\\HSBors\\HSBors.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\HSBors\\HSBorsApi\\HSBors\\HSBors.csproj",
+        "projectUniqueName": "D:\\Projects\\HSBors\\Api\\HSBors\\HSBors.csproj",
         "projectName": "HSBors",
-        "projectPath": "D:\\Projects\\HSBors\\HSBorsApi\\HSBors\\HSBors.csproj",
+        "projectPath": "D:\\Projects\\HSBors\\Api\\HSBors\\HSBors.csproj",
         "packagesPath": "C:\\Users\\soheil\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\HSBors\\HSBorsApi\\HSBors\\obj\\publish\\win-x86\\",
+        "outputPath": "D:\\Projects\\HSBors\\Api\\HSBors\\obj\\publish\\win-x86\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\soheil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -42,6 +42,10 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -52,6 +56,18 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.1.2, )"
+            },
+            "Microsoft.AspNetCore.Routing": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.Build": {
+              "target": "Package",
+              "version": "[16.6.0, )"
+            },
+            "Microsoft.Exchange.WebServices": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             },
             "Microsoft.Extensions.Logging.EventLog": {
               "target": "Package",
@@ -65,7 +81,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[2.1.1, )"
+              "version": "[2.1.10, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -74,6 +90,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.3.3, )"
+            },
+            "System.Linq.Dynamic.Core": {
+              "target": "Package",
+              "version": "[1.2.0, )"
             }
           },
           "imports": [
@@ -101,11 +121,22 @@
         "projectUniqueName": "D:\\Projects\\SRL\\SRL\\SRL.csproj",
         "projectName": "SRL",
         "projectPath": "D:\\Projects\\SRL\\SRL\\SRL.csproj",
+        "packagesPath": "C:\\Users\\soheil\\.nuget\\packages\\",
+        "projectStyle": "PackagesConfig",
+        "configFilePaths": [
+          "C:\\Users\\soheil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
         "frameworks": {
           "net46": {
             "projectReferences": {}
           }
-        }
+        },
+        "packagesConfigPath": "D:\\Projects\\SRL\\SRL\\packages.config"
       },
       "frameworks": {
         "net46": {}

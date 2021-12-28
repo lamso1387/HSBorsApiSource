@@ -10,6 +10,8 @@ using HSBors.Models;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Threading;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel;
+
 namespace HSBors.Controllers
 {
     [Route("api/[controller]")]
@@ -22,10 +24,11 @@ namespace HSBors.Controllers
         }
 
         [HttpGet("{id}")]
+        [DisplayName("مشاهده تنظیمات")]
         public async Task<IActionResult> GetSetting(long id)
         {
             string method = nameof(GetSetting);
-            LogHandler.LogMethod(LogHandler.EventType.Call, Logger, method, id);
+            LogHandler.LogMethod(EventType.Call, Logger, method, id);
             SingleResponse<object> response = new SingleResponse<object>();
 
             try
@@ -33,24 +36,25 @@ namespace HSBors.Controllers
                 var existingEntity = await DbContext.GetSetting(new Setting { id = id });
                 if (existingEntity == null)
                 {
-                    response.ErrorCode = (int)ErrorHandler.ErrorCode.NoContent;
-                    return response.ToHttpResponse(Logger, method);
+                    response.ErrorCode = (int)ErrorCode.NoContent;
+                    return response.ToHttpResponse(Logger,Request.HttpContext);
                 }
                 response.Model = existingEntity;
-                response.ErrorCode = (int)ErrorHandler.ErrorCode.OK;
+                response.ErrorCode = (int)ErrorCode.OK;
             }
             catch (Exception ex)
             {
                 LogHandler.LogError(Logger, response, method, ex);
             }
-            return response.ToHttpResponse(Logger, method);
+            return response.ToHttpResponse(Logger,Request.HttpContext);
         }
 
-        [HttpPost("search")] 
+        [HttpPost("search")]
+        [DisplayName("جستجوی تنظیمات")]
         public async Task<IActionResult> SearchSetting()
         {
             string method = nameof(SearchSetting);
-            LogHandler.LogMethod(LogHandler.EventType.Call, Logger, method);
+            LogHandler.LogMethod(EventType.Call, Logger, method);
             PagedResponse<object> response = new PagedResponse<object>();
 
             try
@@ -67,28 +71,29 @@ namespace HSBors.Controllers
                         x.value
                     });
                 response.Model = entity_list;
-                response.ErrorCode = (int)ErrorHandler.ErrorCode.OK;
+                response.ErrorCode = (int)ErrorCode.OK;
             }
             catch (Exception ex)
             {
                 LogHandler.LogError(Logger, response, method, ex);
             }
 
-            return response.ToHttpResponse(Logger, method);
+            return response.ToHttpResponse(Logger,Request.HttpContext);
 
         }
 
+        [DisplayName("افزودن تنظیمات")]
         [HttpPost("add")] 
         public async Task<IActionResult> AddSetting([FromBody] AddSettingRequest request)
         {
             string method = nameof(AddSetting);
-            LogHandler.LogMethod(LogHandler.EventType.Call, Logger, method, request);
+            LogHandler.LogMethod(EventType.Call, Logger, method, request);
             SingleResponse<object> response = new SingleResponse<object>();
 
             try
             {
                 if (!request.CheckValidation(response))
-                    return response.ToHttpResponse(Logger, method);
+                    return response.ToHttpResponse(Logger,Request.HttpContext);
 
                 var user = request.ToEntity();
 
@@ -97,8 +102,8 @@ namespace HSBors.Controllers
                     var existingEntity = DbContext.GetSettings(null, user.type);
                     if (existingEntity?.Count()>0)
                     {
-                        response.ErrorCode = (int)ErrorHandler.ErrorCode.AddRepeatedEntity;
-                        return response.ToHttpResponse(Logger, method);
+                        response.ErrorCode = (int)ErrorCode.AddRepeatedEntity;
+                        return response.ToHttpResponse(Logger,Request.HttpContext);
                     }
                 }
 
@@ -106,8 +111,8 @@ namespace HSBors.Controllers
                 int save = await DbContext.SaveChangesAsync();
                 if (save == 0)
                 {
-                    response.ErrorCode = (int)ErrorHandler.ErrorCode.DbSaveNotDone;
-                    return response.ToHttpResponse(Logger, method);
+                    response.ErrorCode = (int)ErrorCode.DbSaveNotDone;
+                    return response.ToHttpResponse(Logger,Request.HttpContext);
                 }
                 var entity_list = new List<Setting> { user }
                     .Select(x => new
@@ -121,34 +126,35 @@ namespace HSBors.Controllers
                         x.status
                     }).First();
                 response.Model = entity_list;
-                response.ErrorCode = (int)ErrorHandler.ErrorCode.OK;
+                response.ErrorCode = (int)ErrorCode.OK;
             }
             catch (Exception ex)
             {
                 LogHandler.LogError(Logger, response, method, ex);
             }
-            return response.ToHttpResponse(Logger, method);
+            return response.ToHttpResponse(Logger,Request.HttpContext);
         }
 
         [HttpPut("edit")]
+        [DisplayName("ویرایش تنظیمات")]
         public async Task<IActionResult> EditSetting([FromBody] AddSettingRequest request)
         {
             string method = nameof(EditSetting);
-            LogHandler.LogMethod(LogHandler.EventType.Call, Logger, method, request);
+            LogHandler.LogMethod(EventType.Call, Logger, method, request);
             SingleResponse<object> response = new SingleResponse<object>();
 
             try
             {
                 if (!request.CheckValidation(response))
-                    return response.ToHttpResponse(Logger, method);
+                    return response.ToHttpResponse(Logger,Request.HttpContext);
 
                 var entity = request.ToEntity(true); 
 
                 var existingEntity = await DbContext.GetSetting(entity);
                 if (existingEntity == null)
                 {
-                    response.ErrorCode = (int)ErrorHandler.ErrorCode.NoContent;
-                    return response.ToHttpResponse(Logger, method);
+                    response.ErrorCode = (int)ErrorCode.NoContent;
+                    return response.ToHttpResponse(Logger,Request.HttpContext);
                 }
 
                 existingEntity.type = entity.type;
@@ -159,8 +165,8 @@ namespace HSBors.Controllers
                 int save = await DbContext.SaveChangesAsync();
                 if (save == 0)
                 {
-                    response.ErrorCode = (int)ErrorHandler.ErrorCode.DbSaveNotDone;
-                    return response.ToHttpResponse(Logger, method);
+                    response.ErrorCode = (int)ErrorCode.DbSaveNotDone;
+                    return response.ToHttpResponse(Logger,Request.HttpContext);
                 }
                 var entity_list = new List<Setting> { entity }
                     .Select(x => new
@@ -174,20 +180,21 @@ namespace HSBors.Controllers
                         x.status
                     }).First();
                 response.Model = entity_list;
-                response.ErrorCode = (int)ErrorHandler.ErrorCode.OK;
+                response.ErrorCode = (int)ErrorCode.OK;
             }
             catch (Exception ex)
             {
                 LogHandler.LogError(Logger, response, method, ex);
             }
-            return response.ToHttpResponse(Logger, method);
+            return response.ToHttpResponse(Logger,Request.HttpContext);
         }
 
+        [DisplayName("حذف تنظیمات")]
         [HttpDelete("delete/{id}")] 
         public async Task<IActionResult> DeleteSetting(long id)
         {
             string method = nameof(DeleteSetting);
-            LogHandler.LogMethod(LogHandler.EventType.Call, Logger, method, id);
+            LogHandler.LogMethod(EventType.Call, Logger, method, id);
             SingleResponse<object> response = new SingleResponse<object>();
 
             try
@@ -195,25 +202,25 @@ namespace HSBors.Controllers
                 var existingEntity = await DbContext.GetSetting(new Setting { id = id });
                 if (existingEntity == null)
                 {
-                    response.ErrorCode = (int)ErrorHandler.ErrorCode.NoContent;
-                    return response.ToHttpResponse(Logger, method);
+                    response.ErrorCode = (int)ErrorCode.NoContent;
+                    return response.ToHttpResponse(Logger,Request.HttpContext);
                 }
 
                 DbContext.Remove(existingEntity);
                 int save = await DbContext.SaveChangesAsync();
                 if (save == 0)
                 {
-                    response.ErrorCode = (int)ErrorHandler.ErrorCode.DbSaveNotDone;
-                    return response.ToHttpResponse(Logger, method);
+                    response.ErrorCode = (int)ErrorCode.DbSaveNotDone;
+                    return response.ToHttpResponse(Logger,Request.HttpContext);
                 }
                 response.Model = true;
-                response.ErrorCode = (int)ErrorHandler.ErrorCode.OK;
+                response.ErrorCode = (int)ErrorCode.OK;
             }
             catch (Exception ex)
             {
                 LogHandler.LogError(Logger, response, method, ex);
             }
-            return response.ToHttpResponse(Logger, method);
+            return response.ToHttpResponse(Logger,Request.HttpContext);
         }
 
     }
